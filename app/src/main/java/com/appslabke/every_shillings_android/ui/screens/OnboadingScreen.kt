@@ -59,7 +59,8 @@ fun OnboadingScreen() {
                             .height(56.dp),
                         shape = MaterialTheme.shapes.medium,
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color(0xFF2B5EC0)
+                            backgroundColor = Color(0xFF2B5EC0),
+                            contentColor = Color.White
                         )
 
                     ) {

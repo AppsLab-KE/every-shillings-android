@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">every-shillings-android</string>
+    <string name="title_activity_reset_password_ui">ResetPasswordUi</string>
 </resources>

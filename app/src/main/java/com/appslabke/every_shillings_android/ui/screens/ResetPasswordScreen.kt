@@ -117,6 +117,7 @@ fun ResetPasswordScreen() {
         Button(
             onClick = { /*TODO*/ },
             modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 14.dp)
                 .height(56.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(0xFF2B5EC0),

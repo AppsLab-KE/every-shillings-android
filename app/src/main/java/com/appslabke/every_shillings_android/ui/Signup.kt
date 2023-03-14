@@ -181,7 +181,7 @@ fun Signup(modifier: Modifier = Modifier) {
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Signup", fontSize = 18.sp)
+                Text(text = "Sign up", fontSize = 18.sp)
             }
             Spacer(modifier = modifier.height(10.dp))
             AnnotatedLoginText()

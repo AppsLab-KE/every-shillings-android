@@ -1,36 +1,28 @@
 version: 2.1
 
-orbs:
-  android: circleci/android@2.2.0
-
 jobs:
   build:
-    executor: android/default
+    working_directory: ~/every-shillings-backend
+    docker:
+      - image: circleci/openjdk:11-jdk-buster
     steps:
       - checkout
-      - android/setup:
-      #specifies which SDK Components to install
-          components: "build-tools-29.0.3,platforms;android-29"
-
-          #executes gradle command to build and test
-      - run: ./gradlew androidDependencies
-      - store_artifacts:
-          path: app/build/outputs/
-          destination: app-outputs
-
-  test:
-    executor: android/default
-    steps:
-      - checkout
-      - android/setup:
-          components: "build-tools-29.0.3,platforms;android-29"
-      - run: ./gradlew androidDependencies
-      - run: ./gradlew testDebug
+      - run:
+          name: Set up JDK and Kotlin
+          command: |
+            echo 'export PATH="/usr/local/kotlin/bin:$PATH"' >> $BASH_ENV
+            curl -s https://get.sdkman.io | bash
+            source "$HOME/.sdkman/bin/sdkman-init.sh"
+            sdk install kotlin
+            sdk use kotlin
+      - run:
+          name: Build and test
+          command: |
+            sudo chmod +x ./gradlew
+            ./gradlew androidDependencies
+            ./gradlew build test
 
 workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build

@@ -27,7 +27,7 @@ fun Login() {
         val fullPhoneNumber = rememberSaveable { mutableStateOf("") }
         val onlyPhoneNumber = rememberSaveable { mutableStateOf("") }
 
-            Text(
+        Text(
             text = "Login",
             color = Color(0xFF2B5EC0),
             fontWeight = FontWeight.Bold,

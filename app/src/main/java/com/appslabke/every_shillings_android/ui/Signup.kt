@@ -43,7 +43,7 @@ import com.togitech.ccp.component.getOnlyPhoneNumber
 import com.togitech.ccp.component.isPhoneNumber
 
 @Composable
-fun Signup(modifier: Modifier = Modifier) {
+fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () -> Unit) {
     val fullName = rememberSaveable { mutableStateOf("") }
     val email = rememberSaveable { mutableStateOf("") }
     val phoneNumber = rememberSaveable { mutableStateOf("") }
@@ -169,8 +169,8 @@ fun Signup(modifier: Modifier = Modifier) {
                         fullPhoneNumber.value = "Error"
                         onlyPhoneNumber.value = "Error"
                     }
-
-                    /*TODO()*/
+                    // will take user to VerifySignUp screen
+                    navigateToVerifySignUpOtpScreen()
                 },
                 modifier = modifier
                     .fillMaxWidth()
@@ -320,6 +320,6 @@ fun AnnotatedLoginText() {
 @Composable
 fun SignupPreview() {
     EveryshillingsandroidTheme {
-        Signup()
+        //Signup()
     }
 }

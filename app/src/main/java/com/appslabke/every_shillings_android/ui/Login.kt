@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.togitech.ccp.component.*
 
 @Composable
-fun Login() {
+fun Login(navigateToLoginOtpScreen: () -> Unit) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -64,6 +64,7 @@ fun Login() {
                     fullPhoneNumber.value = "Error"
                     onlyPhoneNumber.value = "Error"
                 }
+                navigateToLoginOtpScreen()
             },
             modifier = Modifier
                 .fillMaxWidth()

@@ -17,9 +17,11 @@ import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun OnboadingScreen() {
+fun OnboadingScreen(
+    navigateToLoginScreen: () -> Unit,
+    navigateToSigUpScreen: () -> Unit
+) {
     Surface {
         Box(
             modifier = Modifier
@@ -53,7 +55,7 @@ fun OnboadingScreen() {
                 Column(modifier = Modifier) {
 
                     // Sign up
-                    Button(onClick = { /*TODO*/ },
+                    Button(onClick = { navigateToSigUpScreen() },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),
@@ -68,7 +70,7 @@ fun OnboadingScreen() {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     // Sign in
-                    OutlinedButton(onClick = { /*TODO*/ },
+                    OutlinedButton(onClick = { navigateToLoginScreen() },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),

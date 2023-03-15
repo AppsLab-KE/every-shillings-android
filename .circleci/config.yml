@@ -13,10 +13,12 @@ jobs:
             curl -s https://get.sdkman.io | bash
             source "$HOME/.sdkman/bin/sdkman-init.sh"
             sdk install kotlin
+
       - run:
           name: Build and test
           command: |
             sudo chmod +x ./gradlew
+            ./gradlew androidDependencies
             ./gradlew build test
 workflows:
   build_and_test:

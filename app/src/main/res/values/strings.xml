@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">every-shillings-android</string>
+    <string name="title_activity_forget_password">Forget Password</string>
+
+
+
+    //Custom String
+    <string name="enter_your_email">Enter your Email Address</string>
+    <string name="check_email_link">Check your Email for a link</string>
+    <string name="email">Email</string>
+    <string name="btn_text">Continue</string>
 </resources>

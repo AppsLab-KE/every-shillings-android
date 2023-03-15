@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Everyshillingsandroid"
         tools:targetApi="31">
         <activity
+            android:name=".ForgetPassword"
+            android:exported="false"
+            android:label="@string/title_activity_forget_password"
+            android:theme="@style/Theme.Everyshillingsandroid"/>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -27,6 +33,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
     </application>
 
 </manifest>

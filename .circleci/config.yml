@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Build and test
           command: |
-            sudo +x ./gradlew
+            sudo chmod +x ./gradlew
             ./gradlew build test
 workflows:
   build_and_test:

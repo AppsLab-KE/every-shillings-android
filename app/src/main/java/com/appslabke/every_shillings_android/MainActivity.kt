@@ -10,6 +10,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.appslabke.every_shillings_android.navigation.Screens
+import com.appslabke.every_shillings_android.navigation.SetNavGraph
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +25,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+
+                    val navController = rememberNavController()
+                    SetNavGraph(startDestination = Screens.OnboardingScreen.route,
+                        navController = navController)
                 }
             }
         }
@@ -30,14 +36,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun Home() {
+    Text(text = "Hello Screen")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     EveryshillingsandroidTheme {
-        Greeting("Android")
+        Home()
     }
 }

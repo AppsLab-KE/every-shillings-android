@@ -38,12 +38,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 import com.togitech.ccp.component.TogiCountryCodePicker
-import com.togitech.ccp.component.getFullPhoneNumber
-import com.togitech.ccp.component.getOnlyPhoneNumber
-import com.togitech.ccp.component.isPhoneNumber
 
 @Composable
-fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () -> Unit) {
+fun Signup(
+    modifier: Modifier = Modifier,
+    navigateToVerifySignUpOtpScreen: () -> Unit,
+    navigateToLoginScreen: () -> Unit) {
     val fullName = rememberSaveable { mutableStateOf("") }
     val email = rememberSaveable { mutableStateOf("") }
     val phoneNumber = rememberSaveable { mutableStateOf("") }
@@ -80,10 +80,10 @@ fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () ->
             )
             Spacer(modifier = modifier.height(20.dp))
             Text(
-                text = "Signup with your Email and phone number",
+                text = "Signup with your Email and Phone number",
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
@@ -119,7 +119,10 @@ fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () ->
                 fontSize = 16.sp,
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                    .padding(
+                        horizontal = 20.dp,
+                        vertical = 10.dp
+                    )
             )
             TogiCountryCodePicker( modifier = modifier
                 .background(Color.Transparent)
@@ -132,15 +135,14 @@ fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () ->
                 onValueChange = {phoneNumber.value = it },
                 shape = RoundedCornerShape(4.dp),
                 bottomStyle = false,
-                showCountryFlag = false,
-                unfocusedBorderColor = Color.Gray
-
+                showCountryFlag = true,
+                unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.42f),
             )
             Spacer(modifier = modifier.height(10.dp))
             Text(
                 text = "You will receive an OTP",
                 fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
+                fontSize = 20.sp,
             )
             Spacer(modifier = modifier.height(20.dp))
             Row(
@@ -153,7 +155,7 @@ fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () ->
                     checked = checkState.value,
                     onCheckedChange = { isChecked -> checkState.value = isChecked },
                     colors = CheckboxDefaults.colors(
-                        checkedColor = Color(0xFF2B5EC0)
+                        checkedColor = MaterialTheme.colors.primary
                     )
                 )
                 AnnotatedTermsAndPolicies()
@@ -162,13 +164,13 @@ fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () ->
             Button(
                 onClick = {
                     focusManager.clearFocus()
-                    if (!isPhoneNumber()) {
+                    /*if (!isPhoneNumber()) {
                         fullPhoneNumber.value = getFullPhoneNumber()
                         onlyPhoneNumber.value = getOnlyPhoneNumber()
                     } else {
                         fullPhoneNumber.value = "Error"
                         onlyPhoneNumber.value = "Error"
-                    }
+                    }*/
                     // will take user to VerifySignUp screen
                     navigateToVerifySignUpOtpScreen()
                 },
@@ -177,14 +179,13 @@ fun Signup(modifier: Modifier = Modifier, navigateToVerifySignUpOtpScreen: () ->
                     .padding(horizontal = 20.dp),
                 contentPadding = PaddingValues(16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFF2B5EC0),
                     contentColor = Color.White
                 )
             ) {
                 Text(text = "Sign up", fontSize = 18.sp)
             }
             Spacer(modifier = modifier.height(10.dp))
-            AnnotatedLoginText()
+            AnnotatedLoginText(navigateToLoginScreen)
             Spacer(modifier = modifier.height(50.dp))
 
         }
@@ -207,7 +208,7 @@ fun TextInputField(
         fontSize = 16.sp,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp, vertical = 10.dp)
     )
     OutlinedTextField(
         modifier = modifier
@@ -221,12 +222,12 @@ fun TextInputField(
         keyboardActions = KeyboardActions(
             onDone = { focusManager.clearFocus() }
         ),
-        colors = TextFieldDefaults.textFieldColors(
+       /* colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color(0xFF2B5EC0),
             cursorColor = Color(0xFF2B5EC0),
             backgroundColor = Color.Transparent,
             focusedLabelColor = Color(0xFF2B5EC0),
-        ),
+        ),*/
     )
 }
 
@@ -242,7 +243,7 @@ fun AnnotatedTermsAndPolicies() {
         )
 
         withStyle(
-            style = SpanStyle(color = Color(0xFF2B5EC0))
+            style = SpanStyle(color = MaterialTheme.colors.primary)
         ) {
             append("Terms and Conditions")
         }
@@ -252,7 +253,7 @@ fun AnnotatedTermsAndPolicies() {
                 tag = "privacy_policies",
                 annotation = "Privacy Policies page"
             )
-        withStyle(style = SpanStyle(color = Color(0xFF2B5EC0))
+        withStyle(style = SpanStyle(color = MaterialTheme.colors.primary)
         ) {
             append("Privacy Policies")
         }
@@ -260,7 +261,7 @@ fun AnnotatedTermsAndPolicies() {
     }
     ClickableText(
         text = annotatedText,
-        style = TextStyle.Default.copy(fontSize = 16.sp),
+        style = TextStyle.Default.copy(fontSize = 18.sp),
         onClick = { offset ->
         annotatedText.getStringAnnotations(
             tag = "terms_conditions",
@@ -283,7 +284,7 @@ fun AnnotatedTermsAndPolicies() {
 }
 
 @Composable
-fun AnnotatedLoginText() {
+fun AnnotatedLoginText(navigateToLoginScreen: () -> Unit) {
     val context = LocalContext.current
     val annotatedText = buildAnnotatedString {
         append("Already have an account? ")
@@ -293,7 +294,7 @@ fun AnnotatedLoginText() {
         )
         withStyle(
             style = SpanStyle(
-                color = Color(0xFF2B5EC0)
+                color =MaterialTheme.colors.primary
             )
         ){
             append("Login")
@@ -302,14 +303,14 @@ fun AnnotatedLoginText() {
     }
     ClickableText(
         text = annotatedText,
-        style = TextStyle.Default.copy(fontSize = 16.sp),
+        style = TextStyle.Default.copy(fontSize = 18.sp),
         onClick = {offset->
             annotatedText.getStringAnnotations(
                 tag = "navigate_login",
                 start = offset,
                 end = offset
-            ).firstOrNull()?.let { annotation ->
-                Toast.makeText(context, annotation.item, Toast.LENGTH_SHORT).show()
+            ).firstOrNull()?.let {
+               navigateToLoginScreen()
                 /*TODO()*/
             }
 

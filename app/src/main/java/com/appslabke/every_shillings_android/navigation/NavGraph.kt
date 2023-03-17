@@ -37,6 +37,9 @@ fun SetNavGraph(
         signup(
             navigateSignUpOtp ={
                 navController.navigate(Screens.SignUpOtpScreen.route)
+            },
+            navigateToLoginScreen = {
+                navController.navigate(Screens.Login.route)
             }
         )
         login(
@@ -66,12 +69,14 @@ fun NavGraphBuilder.onboardingScreen(
 
 //Signup Screen
 fun NavGraphBuilder.signup(
-    navigateSignUpOtp : () -> Unit
+    navigateSignUpOtp : () -> Unit,
+    navigateToLoginScreen: () -> Unit,
 ){
     composable(route = Screens.SignUp.route){
         // call SignUp composable here
         Signup(
-            navigateToVerifySignUpOtpScreen =navigateSignUpOtp
+            navigateToVerifySignUpOtpScreen =navigateSignUpOtp,
+            navigateToLoginScreen = navigateToLoginScreen
         )
     }
 }

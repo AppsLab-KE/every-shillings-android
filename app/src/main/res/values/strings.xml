@@ -8,5 +8,5 @@
     <string name="enter_your_email">Enter your Email Address</string>
     <string name="check_email_link">Check your Email for a link</string>
     <string name="email">Email</string>
-    <string name="btn_text">Continue</string>
+    <string name="reset_btn_text">Reset Password</string>
 </resources>

@@ -1,3 +1,5 @@
+package com.appslabke.every_shillings_android.ui
+
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,7 +17,9 @@ import androidx.compose.ui.unit.sp
 import com.togitech.ccp.component.*
 
 @Composable
-fun Login(navigateToLoginOtpScreen: () -> Unit) {
+fun Login(
+    navigateToLoginOtpScreen: () -> Unit
+) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -64,7 +68,6 @@ fun Login(navigateToLoginOtpScreen: () -> Unit) {
                     fullPhoneNumber.value = "Error"
                     onlyPhoneNumber.value = "Error"
                 }
-                navigateToLoginOtpScreen()
             },
             modifier = Modifier
                 .fillMaxWidth()

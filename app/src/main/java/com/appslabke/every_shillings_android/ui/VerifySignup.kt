@@ -1,10 +1,13 @@
 package com.appslabke.every_shillings_android.ui
 
-import androidx.compose.foundation.clickable
+import android.widget.Toast
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -16,12 +19,16 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,10 +39,12 @@ fun VerifySignup(modifier: Modifier = Modifier) {
     val code = rememberSaveable{ mutableStateOf("")  }
     val focusRequester = remember{ FocusRequester()  }
     val focusManager = LocalFocusManager.current
+    val scrollState = rememberScrollState()
     Box(modifier = modifier.fillMaxSize()) {
         Column(modifier = modifier
             .fillMaxWidth()
             .padding(PaddingValues(20.dp))
+            .verticalScroll(scrollState)
             .pointerInput(Unit) {
                 detectTapGestures {
                     focusManager.clearFocus()
@@ -45,7 +54,7 @@ fun VerifySignup(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = "Sign Up",
-                color = Color(0xFF2B5EC0),
+                color = MaterialTheme.colors.primary,
                 fontWeight = FontWeight.Bold,
                 fontSize = 25.sp
             )
@@ -57,9 +66,11 @@ fun VerifySignup(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = modifier.height(10.dp))
             Text(
-                text = "Enter the four digit code sent to your number",
+                text = "Enter four digit code sent to your number",
+                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
-                fontSize = 16.sp
+                fontSize = 18.sp,
+                modifier = modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 modifier = modifier
@@ -77,35 +88,9 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                 keyboardActions = KeyboardActions(
                     onDone = { focusManager.clearFocus() }
                 ),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color(0xFF2B5EC0),
-                    cursorColor = Color(0xFF2B5EC0),
-                    backgroundColor = Color.Transparent,
-                    focusedLabelColor = Color(0xFF2B5EC0),
-                ),
             )
-            Row(
-                modifier = modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Didn't receive the code?",
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp
-                )
-                Spacer(modifier = modifier.width(2.dp))
-                Text(
-                    text = "Click here to resend",
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp,
-                    color = Color(0xFF2B5EC0),
-                    style = TextStyle(textDecoration = TextDecoration.Underline),
-                    modifier = modifier.clickable {
-                        /*TODO()*/
-                    }
-                )
-            }
+
+            AnnotatedResendCodeText()
             Spacer(modifier = modifier.height(30.dp))
             Button(
                 onClick = {
@@ -115,7 +100,6 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                 modifier = modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFF2B5EC0),
                     contentColor = Color.White
                 )
             ) {
@@ -124,6 +108,39 @@ fun VerifySignup(modifier: Modifier = Modifier) {
 
         }
     }
+}
+
+@Composable
+fun AnnotatedResendCodeText() {
+    val context = LocalContext.current
+    val annotatedText = buildAnnotatedString {
+        append("Didn't receive the code? ")
+        pushStringAnnotation(
+            tag = "resend_code",
+            annotation = "Do resend code"
+        )
+        withStyle(
+            style = SpanStyle(
+                color =MaterialTheme.colors.primary
+            )
+        ){
+            append("Click here to resend")
+        }
+        pop()
+    }
+    ClickableText(
+        text = annotatedText,
+        style = TextStyle.Default.copy(fontSize = 18.sp),
+        onClick = {offset->
+            annotatedText.getStringAnnotations(
+                tag = "resend_code",
+                start = offset,
+                end = offset
+            ).firstOrNull()?.let {
+                Toast.makeText(context, "TODO() resend code", Toast.LENGTH_SHORT).show()
+                /*TODO()*/
+            }
+        })
 }
 
 @Preview(showSystemUi = true)

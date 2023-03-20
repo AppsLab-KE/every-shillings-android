@@ -1,11 +1,11 @@
 package com.appslabke.every_shillings_android.navigation
 
-import Login
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.appslabke.every_shillings_android.ui.Login
 import com.appslabke.every_shillings_android.ui.Signup
 import com.appslabke.every_shillings_android.ui.VerifySignup
 import com.appslabke.every_shillings_android.ui.screens.LoginOtp

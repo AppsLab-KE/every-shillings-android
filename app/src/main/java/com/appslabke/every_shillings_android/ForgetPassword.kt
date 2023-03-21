@@ -94,7 +94,7 @@ fun ForgetPasswordScreen(){
            )
        ) {
            Text(
-               text = stringResource(R.string.btn_text),
+               text = stringResource(R.string.reset_btn_text),
                fontWeight = FontWeight.SemiBold,
                textAlign = TextAlign.Center,
                fontFamily = FontFamily(Font(R.font.poppins_regular)),

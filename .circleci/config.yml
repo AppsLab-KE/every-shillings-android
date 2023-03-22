@@ -1,0 +1,35 @@
+version: 2
+orbs:
+  android: circleci/android@2.1.2
+jobs:
+  build:
+    working_directory: ~/every-shillings-android
+    docker:
+ #     - image: ccistaging/openjdk:11-jdk-buster
+      - image:  cimg/android:2022.07
+    auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+    # environment:
+    #   JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - run:
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+
+      # Generate apk
+      - run: ./gradlew assembleDebug
+      - store_artifacts:
+          path: app/build/outputs/apk/
+          destination: apks/
+
+      # run tests!
+      - run: ./gradlew test

@@ -36,8 +36,9 @@ import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 
 @Composable
 fun VerifySignup(modifier: Modifier = Modifier) {
-    val code = rememberSaveable{ mutableStateOf("")  }
-    val focusRequester = remember{ FocusRequester()  }
+    val code = rememberSaveable { mutableStateOf("") }
+    val codeIsInvalid = rememberSaveable { mutableStateOf(false) }
+    val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
     Box(modifier = modifier.fillMaxSize()) {
@@ -49,7 +50,7 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                 detectTapGestures {
                     focusManager.clearFocus()
                 }
-            } ,
+            },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
@@ -75,12 +76,18 @@ fun VerifySignup(modifier: Modifier = Modifier) {
             OutlinedTextField(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(vertical = 70.dp)
+                    .padding(top = 70.dp)
                     .focusRequester(focusRequester),
                 value = code.value,
-                onValueChange = { code.value = it },
+                onValueChange = {
+                    code.value = it
+                    if (code.value.length == 4) {
+                        focusManager.clearFocus()
+                        codeIsInvalid.value = false
+                    }
+                },
                 textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-                label = { Text(text = "Code")},
+                label = { Text(text = "Code") },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
@@ -88,14 +95,30 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                 keyboardActions = KeyboardActions(
                     onDone = { focusManager.clearFocus() }
                 ),
+                isError = codeIsInvalid.value
             )
+            if (codeIsInvalid.value) {
+                Text(
+                    text = "Enter a valid code",
+                    color = MaterialTheme.colors.error,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                )
+            }
+            Spacer(modifier = modifier.height(70.dp))
 
             AnnotatedResendCodeText()
             Spacer(modifier = modifier.height(30.dp))
             Button(
                 onClick = {
-                    focusManager.clearFocus()
-                    /*TODO()*/
+                    if (code.value.length!=4){
+                        codeIsInvalid.value = true
+                    }else {
+                        /*TODO() go home*/
+                        codeIsInvalid.value = false
+                        focusManager.clearFocus()
+                    }
                 },
                 modifier = modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(16.dp),
@@ -121,9 +144,9 @@ fun AnnotatedResendCodeText() {
         )
         withStyle(
             style = SpanStyle(
-                color =MaterialTheme.colors.primary
+                color = MaterialTheme.colors.primary
             )
-        ){
+        ) {
             append("Click here to resend")
         }
         pop()
@@ -131,7 +154,7 @@ fun AnnotatedResendCodeText() {
     ClickableText(
         text = annotatedText,
         style = TextStyle.Default.copy(fontSize = 18.sp),
-        onClick = {offset->
+        onClick = { offset ->
             annotatedText.getStringAnnotations(
                 tag = "resend_code",
                 start = offset,

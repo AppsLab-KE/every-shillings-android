@@ -14,3 +14,10 @@ fun HomeScreen(){
     }
 
 }
+
+@Composable
+fun UserDetails() {
+//    Row() {
+//
+//    }
+}

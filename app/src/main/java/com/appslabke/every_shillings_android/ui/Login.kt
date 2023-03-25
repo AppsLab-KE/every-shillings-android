@@ -3,18 +3,26 @@ package com.appslabke.every_shillings_android.ui
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.togitech.ccp.component.*
+import com.togitech.ccp.data.utils.getLibCountries
 
 @Composable
 fun Login(
@@ -27,6 +35,9 @@ fun Login(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        val focusManager = LocalFocusManager.current
+        val phoneCode = rememberSaveable { mutableStateOf("+254") }
+        val phoneNumberInvalid = rememberSaveable { mutableStateOf(false) }
         val phoneNumber = rememberSaveable { mutableStateOf("") }
         val fullPhoneNumber = rememberSaveable { mutableStateOf("") }
         val onlyPhoneNumber = rememberSaveable { mutableStateOf("") }
@@ -50,15 +61,67 @@ fun Login(
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp
         )
-        Spacer(modifier = Modifier.height(70.dp))
-        TogiCountryCodePicker(
-            text = phoneNumber.value,
-            onValueChange = { phoneNumber.value = it },
-            unfocusedBorderColor = MaterialTheme.colors.primary,
-            bottomStyle = false, //  if true the text-field is below the country code selector at the top.
-            shape = RoundedCornerShape(8.dp)
+        Spacer(modifier = Modifier.height(40.dp))
+        Text(
+            text = "Phone Number",
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 20.dp,
+                    bottom = 14.dp
+                )
         )
-        Spacer(modifier = Modifier.height(50.dp))
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 20.dp),
+            value = phoneNumber.value,
+            onValueChange = {
+                phoneNumber.value = it
+                fullPhoneNumber.value = phoneCode.value + phoneNumber.value
+                if (phoneNumber.value.length == 9) phoneNumberInvalid.value = false
+            },
+            leadingIcon = {
+                TogiCodeDialog(
+                    defaultSelectedCountry = getLibCountries.first { countryData -> countryData.countryPhoneCode == "+254" },
+                    pickedCountry = { getLibCountries.first { data -> data.countryPhoneCode == "+254" } }
+                )
+            },
+            trailingIcon = {
+                if (phoneNumber.value.isNotEmpty()) {
+                    IconButton(onClick = {
+                        phoneNumber.value = ""
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Clear,
+                            contentDescription = "Clear",
+                        )
+                    }
+                }
+            },
+            placeholder = { Text(text = "712345678") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Phone
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { focusManager.clearFocus() }
+            ),
+            isError = phoneNumberInvalid.value
+        )
+        if (phoneNumberInvalid.value) {
+            Text(
+                text = "Enter a valid phone number",
+                color = MaterialTheme.colors.error,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(40.dp))
         Button(
             onClick = {
                 if (!isPhoneNumber()) {

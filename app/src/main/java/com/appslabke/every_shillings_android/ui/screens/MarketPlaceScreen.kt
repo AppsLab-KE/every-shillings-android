@@ -51,7 +51,7 @@ fun MarketPlace() {
                 text = stringResource(R.string.market_place)
             )
             Selection()
-            OfferCards(hasOffers = true)
+            OfferCards(hasOffers = false)
         }
     }
 }

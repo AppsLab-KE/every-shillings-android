@@ -141,7 +141,7 @@ fun Login(
                 contentColor = Color.White
             )
         ) {
-            Text(text = "Generate OTP", fontSize = 16.sp)
+            Text(text = "Generate OTP", fontSize = 16.sp, modifier = Modifier.clickable { navigateToLoginOtpScreen() })
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row(

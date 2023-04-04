@@ -84,13 +84,13 @@ fun MarketPlaceDetailedScreen() {
                                 fontSize = 20.sp,
                                 text = "You pay",
                                 fontWeight = FontWeight.Normal,
-                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular))
                             )
                             Text(
                                 fontSize = 20.sp,
                                 text = "$ 400",
                                 fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular))
                             )
                         }
 
@@ -103,13 +103,13 @@ fun MarketPlaceDetailedScreen() {
                         ) {
                             Text(
                                 text = "Total balance",
-                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Normal
                             )
                             Text(
                                 text = "$ 500",
-                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp
                             )
@@ -130,7 +130,7 @@ fun MarketPlaceDetailedScreen() {
                                     .padding(horizontal = 3.dp, vertical = 5.dp),
                                 color = Color.White,
                                 text = "Currency",
-                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                 fontSize = 16.sp
                             )
                         }
@@ -174,13 +174,13 @@ fun MarketPlaceDetailedScreen() {
                                 fontSize = 20.sp,
                                 text = "You pay",
                                 fontWeight = FontWeight.Normal,
-                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular))
                             )
                             Text(
                                 fontSize = 20.sp,
                                 text = "$ 400",
                                 fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular))
                             )
                         }
 
@@ -193,13 +193,13 @@ fun MarketPlaceDetailedScreen() {
                         ) {
                             Text(
                                 text = "Total balance",
-                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Normal
                             )
                             Text(
                                 text = "$ 500",
-                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp
                             )
@@ -220,7 +220,7 @@ fun MarketPlaceDetailedScreen() {
                                     .padding(horizontal = 3.dp, vertical = 5.dp),
                                 color = Color.White,
                                 text = "Currency",
-                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                 fontSize = 16.sp
                             )
                         }
@@ -239,13 +239,13 @@ fun MarketPlaceDetailedScreen() {
                     Text(
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         text = "Exchange rate"
                     )
                     Text(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         text = "1 USD = KES 128"
                     )
                 }
@@ -262,13 +262,13 @@ fun MarketPlaceDetailedScreen() {
                     Text(
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         text = "Transfer fee"
                     )
                     Text(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         text = "2%"
                     )
                 }
@@ -288,7 +288,7 @@ fun MarketPlaceDetailedScreen() {
                         text = "Order Detail",
                         fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         fontSize = 16.sp
                     )
                 }

@@ -43,14 +43,14 @@ fun ResetPasswordScreen() {
             fontWeight = FontWeight.Bold,
             color = Color.Black,
             fontSize = 25.sp,
-            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
             text = "Reset password"
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp,
-            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
             text = "Enter your email address"
         )
         Spacer(modifier = Modifier.height(30.dp))
@@ -59,7 +59,7 @@ fun ResetPasswordScreen() {
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(start = 16.dp),
-            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
             fontWeight = FontWeight.Normal,
             text = "New password"
         )
@@ -88,7 +88,7 @@ fun ResetPasswordScreen() {
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(start = 16.dp),
-            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
             fontWeight = FontWeight.Normal,
             text = "Confirm password"
         )
@@ -129,7 +129,7 @@ fun ResetPasswordScreen() {
                 text = "Continue",
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
-                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontSize = 16.sp
             )
          }

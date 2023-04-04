@@ -330,7 +330,7 @@ fun ExchangeCurrency(){
                 contentColor = Color.White
             ))
         {
-            Text(text = "Book order")
+            Text(text = "Book order", modifier = Modifier.clickable {  })
         }
 
     }

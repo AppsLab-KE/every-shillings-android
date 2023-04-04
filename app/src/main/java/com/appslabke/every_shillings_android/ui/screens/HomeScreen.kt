@@ -55,7 +55,7 @@ fun HomeContent() {
                     text = "Welcome John Doe",
                     style = TextStyle(
                         fontSize = 25.sp,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         color = Color.Black
                     )
                 )
@@ -85,7 +85,7 @@ fun HomeContent() {
                                 text = "KES Account",
                                 style = TextStyle(
                                     fontSize = 25.sp,
-                                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                     color = Color.Black
                                 )
                             )
@@ -109,7 +109,7 @@ fun HomeContent() {
                                     text = "Your Balance",
                                     style = TextStyle(
                                         fontSize = 22.sp,
-                                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                         color = Color.Black
                                     )
                                 )
@@ -121,7 +121,7 @@ fun HomeContent() {
                                     style = TextStyle(
                                         fontSize = 25.sp,
                                         fontWeight = FontWeight.W900,
-                                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                         color = Color.Black
                                     )
                                 )
@@ -150,7 +150,7 @@ fun HomeContent() {
                                         style = TextStyle(
                                             fontSize = 18.sp,
                                             color = Color.White,
-                                            fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                            fontFamily = FontFamily(Font(R.font.urbanist_regular))
                                         ),
                                         overflow = TextOverflow.Visible
                                     )
@@ -180,7 +180,7 @@ fun HomeContent() {
                         style = TextStyle(
                             fontSize = 18.sp,
                             color = Color.White,
-                            fontFamily = FontFamily(Font(R.font.poppins_regular))
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular))
                         )
                     )
                 }
@@ -196,7 +196,7 @@ fun HomeContent() {
                         style = TextStyle(
                             fontSize = 18.sp,
                             color = Color.White,
-                            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         )
                     )
                 }
@@ -212,7 +212,7 @@ fun HomeContent() {
                         style = TextStyle(
                             fontSize = 18.sp,
                             color = Color.White,
-                            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         )
                     )
                 }
@@ -235,7 +235,7 @@ fun HomeContent() {
                         style = TextStyle(
                             fontSize = 15.sp,
                             color = Color.Black,
-                            fontFamily = FontFamily(Font(R.font.poppins_regular))
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular))
                         )
                     )
 
@@ -245,7 +245,7 @@ fun HomeContent() {
                         style = TextStyle(
                             fontSize = 15.sp,
                             color = Color.Black,
-                            fontFamily = FontFamily(Font(R.font.poppins_regular))
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular))
                         )
                     )
                 }
@@ -297,7 +297,7 @@ fun HomeContent() {
                     style = TextStyle(
                         fontSize = 20.sp,
                         color = Color.Red,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular))
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular))
                     )
                 )
                 Text(
@@ -305,7 +305,7 @@ fun HomeContent() {
                     style = TextStyle(
                         fontSize = 20.sp,
                         color = Color.Black,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular))
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular))
                     )
                 )
                 Text(
@@ -313,7 +313,7 @@ fun HomeContent() {
                     style = TextStyle(
                         fontSize = 20.sp,
                         color = Color.Black,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular))
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular))
                     )
                 )
                 Text(
@@ -321,7 +321,7 @@ fun HomeContent() {
                     style = TextStyle(
                         fontSize = 20.sp,
                         color = Color.Black,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular))
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular))
                     )
                 )
             }

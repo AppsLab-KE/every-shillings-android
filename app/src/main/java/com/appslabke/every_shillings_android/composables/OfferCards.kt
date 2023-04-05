@@ -36,7 +36,7 @@ fun OfferCards(
                 textAlign = TextAlign.Center,
                 color = Color.Black,
                 fontSize = 24.sp,
-                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                fontFamily = FontFamily(Font(R.font.urbanist_regular))
             )
         else
             LazyColumn() {

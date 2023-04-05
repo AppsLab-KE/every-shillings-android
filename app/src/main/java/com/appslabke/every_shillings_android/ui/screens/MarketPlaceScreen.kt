@@ -47,7 +47,7 @@ fun MarketPlace() {
                 fontWeight = FontWeight.W400,
                 color = Color.Black,
                 fontSize = 24.sp,
-                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 text = stringResource(R.string.market_place)
             )
             Selection()

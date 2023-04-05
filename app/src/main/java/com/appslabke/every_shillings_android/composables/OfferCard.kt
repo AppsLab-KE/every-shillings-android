@@ -45,7 +45,8 @@ fun OfferCard() {
                     modifier = Modifier
                         .padding(start = 11.dp, top = 7.dp),
                     fontWeight = FontWeight.W400,
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     fontSize = 24.sp,
                     color = Color(0xFF2B5EC0)
                 )
@@ -63,7 +64,8 @@ fun OfferCard() {
                     modifier = Modifier
                         .padding(end = 11.dp, top = 7.dp),
                     fontWeight = FontWeight.W400,
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     fontSize = 24.sp,
                     color = Color(0xFF2B5EC0)
                 )
@@ -82,7 +84,8 @@ fun OfferCard() {
                     modifier = Modifier
                         .padding(start = 11.dp, top = 7.dp),
                     fontWeight = FontWeight.W300,
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     fontSize = 18.sp,
                     color = Color(0xFF000000)
                 )
@@ -91,7 +94,8 @@ fun OfferCard() {
                     "Today",
                     modifier = Modifier,
                     fontWeight = FontWeight.W300,
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     fontSize = 18.sp,
                     color = Color(0xFF000000)
                 )
@@ -101,7 +105,8 @@ fun OfferCard() {
                     modifier = Modifier
                         .padding(end = 11.dp, top = 7.dp),
                     fontWeight = FontWeight.W300,
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     fontSize = 18.sp,
                     color = Color(0xFF000000)
                 )

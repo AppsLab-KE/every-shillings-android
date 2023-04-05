@@ -24,6 +24,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 
 @Composable
@@ -56,12 +59,16 @@ fun VerifySignup(modifier: Modifier = Modifier) {
             Text(
                 text = "Sign Up",
                 color = MaterialTheme.colors.primary,
+
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontWeight = FontWeight.Bold,
                 fontSize = 25.sp
             )
             Spacer(modifier = modifier.height(30.dp))
             Text(
                 text = "Verify your phone number",
+
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
@@ -70,6 +77,8 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                 text = "Enter four digit code sent to your number",
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
+
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontSize = 18.sp,
                 modifier = modifier.fillMaxWidth()
             )
@@ -101,6 +110,8 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                 Text(
                     text = "Enter a valid code",
                     color = MaterialTheme.colors.error,
+
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
@@ -126,7 +137,8 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Continue", fontSize = 18.sp)
+                Text(text = "Continue", fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)))
             }
 
         }

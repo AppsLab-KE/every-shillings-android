@@ -64,9 +64,10 @@ fun DropDownMenu(
                     Text(
                         text = selectedOption,
                         textAlign = TextAlign.Center,
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         fontWeight = FontWeight.W400,
                         fontSize = 20.sp
+
                     )
                 }
             }

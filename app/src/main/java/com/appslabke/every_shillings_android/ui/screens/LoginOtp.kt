@@ -1,5 +1,6 @@
 package com.appslabke.every_shillings_android.ui.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,10 +24,9 @@ import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 
 // Login Otp Verification
-@Preview
 @Composable
 fun LoginOtp(
-    navigatetoHome: ()-> Unit
+    navigatetoHome: () -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -35,31 +35,39 @@ fun LoginOtp(
         mutableStateOf("")
     }
 
+    val isOtpValid = remember {
+        mutableStateOf(true)
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
     ) {
 
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top) {
+            verticalArrangement = Arrangement.Top
+        ) {
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            Text(text = "Login",
+            Text(
+                text = "Login",
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    fontFamily = FontFamily(Font(R.font.urbanist_bold)),
                     color = Color(0xFF2B5EC0),
                     fontSize = 25.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
             )
-            
+
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text(text = "Verify Your Phone Number",
+            Text(
+                text = "Verify Your Phone Number",
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    fontFamily = FontFamily(Font(R.font.urbanist_medium)),
                     color = Color.Black,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -68,7 +76,8 @@ fun LoginOtp(
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            Text(text = "Enter the 4 digit code sent to your number",
+            Text(
+                text = "Enter the 4 digit code sent to your number",
                 style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     color = Color.Black,
@@ -78,25 +87,48 @@ fun LoginOtp(
 
             Spacer(modifier = Modifier.height(45.dp))
 
-            OutlinedTextField(
-                value = otpCode.value,
-                onValueChange = {otpCode.value = it},
-                label = { Text(text = "Code") },
-                textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.urbanist_regular))),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                singleLine = true,
-                maxLines = 1,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Go)
-            )
+            Column {
+
+                OutlinedTextField(
+                    value = otpCode.value,
+                    onValueChange = { otp ->
+                        otpCode.value = otp
+                        isOtpValid.value = true
+                    },
+                    placeholder = { Text(text = "1234") },
+                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.urbanist_regular))),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    singleLine = true,
+                    maxLines = 1,
+                    isError = !isOtpValid.value,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color(0xFF2B5EC0),
+                        cursorColor = Color(0xFF2B5EC0)
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Go
+                    )
+                )
+
+                if (!isOtpValid.value) {
+                    Text(
+                        modifier = Modifier.padding(start = 22.dp, top = 2.dp),
+                        text = "Kindly enter a valid 4 digit Otp",
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colors.error
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.height(45.dp))
-            
+
             Row {
-                Text(text = "Didn't receive a code?",
+                Text(
+                    text = "Didn't receive a code?",
                     style = TextStyle(
                         fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         color = Color.Black,
@@ -123,11 +155,15 @@ fun LoginOtp(
 
             Button(
                 onClick = {
-                    if(otpCode.value.isNotEmpty() && otpCode.value.length == 4) {
-                        // TODO
-                    } else {
-                        Toast.makeText(context,
-                            "Kindly enter a valid code", Toast.LENGTH_SHORT).show()
+                    isOtpValid.value = validateCode(inputCode = otpCode.value)
+
+                    if (isOtpValid.value) {
+                        // Verify Otp
+                        Log.i("Code Valid", " - ${isOtpValid.value}")
+                        Toast.makeText(
+                            context,
+                            "Valid - ${isOtpValid.value}", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 },
                 enabled = true,
@@ -137,19 +173,26 @@ fun LoginOtp(
                     .height(45.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFF2B5EC0),
-                    contentColor = Color.White),
+                    contentColor = Color.White
+                ),
                 elevation = ButtonDefaults.elevation(
                     defaultElevation = 3.dp,
-                    pressedElevation = 0.dp, )) {
-                Text(text = "Continue",
-                    modifier = Modifier.clickable (onClick = {
-                        navigatetoHome()
-                    }),
-                    style = TextStyle (
-                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    pressedElevation = 0.dp,
+                )
+            ) {
+                Text(
+                    text = "Continue",
+                    style = TextStyle(
+                        fontFamily = FontFamily(Font(R.font.urbanist_bold)),
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
-                        ))}
+                    )
+                )
+            }
         }
     }
+}
+
+fun validateCode(inputCode: String): Boolean {
+    return inputCode.length == 4
 }

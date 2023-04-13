@@ -1,5 +1,7 @@
 package com.appslabke.every_shillings_android.ui
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,12 +26,13 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+import com.appslabke.every_shillings_android.ui.screens.validateCode
 import com.togitech.ccp.component.*
 import com.togitech.ccp.data.utils.getLibCountries
 
 @Composable
 fun Login(
-    navigateToLoginOtpScreen: () -> Unit
+    navigateToLoginOtpScreen: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -40,10 +43,10 @@ fun Login(
 
         val focusManager = LocalFocusManager.current
         val phoneCode = rememberSaveable { mutableStateOf("+254") }
-        val phoneNumberInvalid = rememberSaveable { mutableStateOf(false) }
-        val phoneNumber = rememberSaveable { mutableStateOf("") }
-        val fullPhoneNumber = rememberSaveable { mutableStateOf("") }
-        val onlyPhoneNumber = rememberSaveable { mutableStateOf("") }
+        val phoneNumberValid = remember { mutableStateOf(true) }
+        val phoneNumber = remember { mutableStateOf("") }
+        val fullPhoneNumber = remember { mutableStateOf("") }
+        val onlyPhoneNumber = remember { mutableStateOf("") }
 
         Text(
             text = "Login",
@@ -80,66 +83,83 @@ fun Login(
                     bottom = 14.dp
                 )
         )
-        OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp),
-            value = phoneNumber.value,
-            onValueChange = {
-                phoneNumber.value = it
-                fullPhoneNumber.value = phoneCode.value + phoneNumber.value
-                if (phoneNumber.value.length == 9) phoneNumberInvalid.value = false
-            },
-            leadingIcon = {
-                TogiCodeDialog(
-                    defaultSelectedCountry = getLibCountries.first { countryData -> countryData.countryPhoneCode == "+254" },
-                    pickedCountry = { getLibCountries.first { data -> data.countryPhoneCode == "+254" } }
-                )
-            },
-            trailingIcon = {
-                if (phoneNumber.value.isNotEmpty()) {
-                    IconButton(onClick = {
-                        phoneNumber.value = ""
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.Clear,
-                            contentDescription = "Clear",
-                        )
-                    }
-                }
-            },
-            placeholder = { Text(text = "712345678",
-                fontFamily = FontFamily(Font(R.font.urbanist_regular))) },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Phone
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = { focusManager.clearFocus() }
-            ),
-            isError = phoneNumberInvalid.value
-        )
-        if (phoneNumberInvalid.value) {
-            Text(
-                text = "Enter a valid phone number",
-                color = MaterialTheme.colors.error,
-                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+        Column {
+            OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 10.dp)
+                    .padding(start = 20.dp, end = 20.dp),
+                value = phoneNumber.value,
+                onValueChange = { phoneNo ->
+                    phoneNumber.value = phoneNo
+                    fullPhoneNumber.value = phoneCode.value + phoneNumber.value
+                    phoneNumberValid.value = true
+                },
+                leadingIcon = {
+                    TogiCodeDialog(
+                        defaultSelectedCountry = getLibCountries.first { countryData -> countryData.countryPhoneCode == "+254" },
+                        pickedCountry = { getLibCountries.first { data -> data.countryPhoneCode == "+254" } }
+                    )
+                },
+                trailingIcon = {
+                    if (phoneNumber.value.isNotEmpty()) {
+                        IconButton(onClick = {
+                            phoneNumber.value = ""
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = "Clear",
+                            )
+                        }
+                    }
+                },
+                placeholder = {
+                    Text(
+                        text = "712345678",
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular))
+                    )
+                },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Phone
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus() }
+                ),
+                isError = !phoneNumberValid.value
             )
+
+            if (!phoneNumberValid.value) {
+                Text(
+                    text = "Enter a valid phone number",
+                    color = MaterialTheme.colors.error,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 3.dp, start = 22.dp)
+                )
+            }
         }
         Spacer(modifier = Modifier.height(40.dp))
         Button(
             onClick = {
-                if (!isPhoneNumber()) {
+
+                phoneNumberValid.value = validatePhoneNumber(inputNumber = phoneNumber.value)
+
+                if (phoneNumberValid.value) {
+                    // Verify Otp
+                    Log.i("Valid Number", "It's valid ${fullPhoneNumber.value}")
                     fullPhoneNumber.value = getFullPhoneNumber()
                     onlyPhoneNumber.value = getOnlyPhoneNumber()
-                } else {
+
+
+                } else if (!phoneNumberValid.value) {
+                    Log.i("Valid Number", "Phone number not valid")
                     fullPhoneNumber.value = "Error"
                     onlyPhoneNumber.value = "Error"
                 }
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -151,7 +171,9 @@ fun Login(
             )
         ) {
             Text(text = "Generate OTP",
-                fontFamily = FontFamily(Font(R.font.urbanist_regular)),fontSize = 16.sp, modifier = Modifier.clickable { navigateToLoginOtpScreen() })
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                fontSize = 16.sp,
+                modifier = Modifier.clickable { navigateToLoginOtpScreen() })
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row(
@@ -179,5 +201,9 @@ fun Login(
             )
         }
     }
+}
+
+fun validatePhoneNumber(inputNumber: String): Boolean {
+    return inputNumber.length == 9
 }
 

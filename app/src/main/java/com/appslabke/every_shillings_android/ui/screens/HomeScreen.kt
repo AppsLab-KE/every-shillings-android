@@ -121,7 +121,7 @@ fun HomeContent() {
                                     style = TextStyle(
                                         fontSize = 25.sp,
                                         fontWeight = FontWeight.W900,
-                                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                                        fontFamily = FontFamily(Font(R.font.urbanist_bold)),
                                         color = Color.Black
                                     )
                                 )

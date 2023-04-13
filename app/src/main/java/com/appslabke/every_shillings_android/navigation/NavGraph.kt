@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.appslabke.every_shillings_android.ui.Login
 import com.appslabke.every_shillings_android.ui.Signup
 import com.appslabke.every_shillings_android.ui.VerifySignup
+import com.appslabke.every_shillings_android.ui.screens.HomeScreen
 import com.appslabke.every_shillings_android.ui.screens.LoginOtp
 import com.appslabke.every_shillings_android.ui.screens.OnboadingScreen
 
@@ -26,6 +27,8 @@ fun SetNavGraph(
         navController = navController
     ){
         // call Extension functions of NavGraphBuilder
+
+        home()
         onboardingScreen(
             navigateToLogin = {
                 navController.navigate(Screens.Login.route)
@@ -48,9 +51,21 @@ fun SetNavGraph(
             }
         )
         verifySignup()
-        loginOtp()
+        loginOtp(
+            navigateToHome ={
+                navController.navigate(Screens.Home.route)
+            }
+        )
     }
 
+}
+
+//Home
+fun NavGraphBuilder.home(){
+    composable(route = Screens.Home.route){
+        // call home composable here
+        HomeScreen()
+    }
 }
 
 //OnboardingScreen
@@ -102,9 +117,21 @@ fun NavGraphBuilder.verifySignup(){
 }
 
 //LoginOtp Screen
-fun NavGraphBuilder.loginOtp(){
+fun NavGraphBuilder.loginOtp(
+    navigateToHome: ()-> Unit
+){
     composable(route = Screens.LoginOtpScreen.route){
         // call Login composable here
-        LoginOtp()
+        LoginOtp(
+            navigatetoHome = { navigateToHome() }
+        )
+    }
+}
+
+//Home
+fun NavGraphBuilder.topUpAccount(){
+    composable(route = Screens.TopUpScreen.route){
+        // call home composable here
+
     }
 }

@@ -25,7 +25,9 @@ import com.appslabke.every_shillings_android.R
 // Login Otp Verification
 @Preview
 @Composable
-fun LoginOtp() {
+fun LoginOtp(
+    navigatetoHome: ()-> Unit
+) {
 
     val context = LocalContext.current
 
@@ -46,7 +48,7 @@ fun LoginOtp() {
 
             Text(text = "Login",
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     color = Color(0xFF2B5EC0),
                     fontSize = 25.sp,
                     fontWeight = FontWeight.ExtraBold
@@ -57,7 +59,7 @@ fun LoginOtp() {
 
             Text(text = "Verify Your Phone Number",
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     color = Color.Black,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -68,7 +70,7 @@ fun LoginOtp() {
 
             Text(text = "Enter the 4 digit code sent to your number",
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     color = Color.Black,
                     fontSize = 16.sp
                 )
@@ -80,7 +82,7 @@ fun LoginOtp() {
                 value = otpCode.value,
                 onValueChange = {otpCode.value = it},
                 label = { Text(text = "Code") },
-                textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.poppins_regular))),
+                textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.urbanist_regular))),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
@@ -96,7 +98,7 @@ fun LoginOtp() {
             Row {
                 Text(text = "Didn't receive a code?",
                     style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         color = Color.Black,
                         fontSize = 15.sp
                     )
@@ -106,7 +108,7 @@ fun LoginOtp() {
 
                 Text(text = "Click here to resend",
                     style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         textDecoration = TextDecoration.Underline,
                         fontSize = 15.sp,
                         color = Color(0xFF2B5EC0)
@@ -140,8 +142,11 @@ fun LoginOtp() {
                     defaultElevation = 3.dp,
                     pressedElevation = 0.dp, )) {
                 Text(text = "Continue",
+                    modifier = Modifier.clickable (onClick = {
+                        navigatetoHome()
+                    }),
                     style = TextStyle (
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
                         ))}

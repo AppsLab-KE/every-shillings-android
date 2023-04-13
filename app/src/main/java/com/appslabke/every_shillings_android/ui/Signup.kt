@@ -31,6 +31,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -40,6 +42,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 import com.togitech.ccp.component.TogiCodeDialog
 import com.togitech.ccp.component.TogiCountryCodePicker
@@ -90,6 +93,7 @@ fun Signup(
                 text = "Sign up",
                 color = Color(0xFF2B5EC0),
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontSize = 25.sp,
             )
             Spacer(modifier = modifier.height(20.dp))
@@ -97,6 +101,7 @@ fun Signup(
                 text = "Signup with your Email and Phone number",
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontSize = 18.sp,
                 modifier = modifier
                     .fillMaxWidth()
@@ -123,6 +128,7 @@ fun Signup(
                 Text(
                     text = "Enter valid name",
                     color = MaterialTheme.colors.error,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
@@ -152,6 +158,7 @@ fun Signup(
                 Text(
                     text = "Enter a valid email address",
                     color = MaterialTheme.colors.error,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
@@ -162,6 +169,7 @@ fun Signup(
                 text = "Phone Number",
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(
@@ -211,6 +219,7 @@ fun Signup(
                 Text(
                     text = "Enter a valid phone number",
                     color = MaterialTheme.colors.error,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
@@ -236,6 +245,7 @@ fun Signup(
             Text(
                 text = "You will receive an OTP",
                 fontWeight = FontWeight.Normal,
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontSize = 20.sp,
             )
             Spacer(modifier = modifier.height(30.dp))
@@ -292,7 +302,8 @@ fun Signup(
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Sign up", fontSize = 18.sp)
+                Text(text = "Sign up", fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)))
             }
             Spacer(modifier = modifier.height(10.dp))
             AnnotatedLoginText(navigateToLoginScreen)
@@ -318,6 +329,7 @@ fun TextInputField(
         text = fieldLabel,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
+        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
         modifier = modifier
             .fillMaxWidth()
             .padding(bottom = 10.dp)

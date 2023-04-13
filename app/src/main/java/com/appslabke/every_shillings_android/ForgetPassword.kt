@@ -46,14 +46,16 @@ fun ForgetPasswordScreen(){
            fontWeight = FontWeight.Bold,
            color = Color.Black,
            fontSize = 20.sp,
-           fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+           fontFamily = FontFamily(Font(R.font.urbanist_regular)),
            text = stringResource(R.string.title_activity_forget_password)
        )
        Spacer(modifier = Modifier.height(20.dp))
        Text(
            fontWeight = FontWeight.Normal,
            fontSize = 14.sp,
-           fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+           fontFamily = FontFamily(Font(R.font.urbanist_regular)),
            text = stringResource(R.string.enter_your_email)
        )
        Spacer(modifier = Modifier.height(90.dp))
@@ -61,7 +63,8 @@ fun ForgetPasswordScreen(){
            modifier = Modifier
                .align(Alignment.Start)
                .padding(start = 32.dp),
-           fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+           fontFamily = FontFamily(Font(R.font.urbanist_regular)),
            fontWeight = FontWeight.Normal,
            text = stringResource(R.string.email)
        )
@@ -78,7 +81,8 @@ fun ForgetPasswordScreen(){
        Text(
            fontWeight = FontWeight.Normal,
            fontSize = 12.sp,
-           fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+           fontFamily = FontFamily(Font(R.font.urbanist_regular)),
            text = stringResource(R.string.check_email_link)
        )
        Spacer(modifier = Modifier.height(32.dp))
@@ -97,7 +101,8 @@ fun ForgetPasswordScreen(){
                text = stringResource(R.string.reset_btn_text),
                fontWeight = FontWeight.SemiBold,
                textAlign = TextAlign.Center,
-               fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+               fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                fontSize = 16.sp
            )
        }

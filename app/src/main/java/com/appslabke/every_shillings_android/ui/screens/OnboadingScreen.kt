@@ -9,6 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,11 +39,16 @@ fun OnboadingScreen(
 
             Column() {
                 Text(text = "Welcome to Everyshilling", modifier = Modifier
-                    .fillMaxWidth(), textAlign = TextAlign.Center,
-                    fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
-                Spacer(modifier = Modifier.height(15.dp) )
+                    .fillMaxWidth(),  textAlign = TextAlign.Center,
+                    fontSize = 24.sp, fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular))
+                )
+                Spacer(modifier = Modifier.height(15.dp))
                 Text(text = "Exchange made easy, anywhere.", modifier = Modifier
-                    .fillMaxWidth(),textAlign = TextAlign.Center, fontSize = 14.sp)
+                    .fillMaxWidth(),
+                    textAlign = TextAlign.Center, fontSize = 14.sp,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular))
+                )
             }
 
             Column(modifier = Modifier) {
@@ -57,7 +64,7 @@ fun OnboadingScreen(
                     )
 
                 ) {
-                    Text(text = "Sign up")
+                    Text(text = "Sign up", fontFamily = FontFamily(Font(R.font.urbanist_regular)))
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -69,7 +76,7 @@ fun OnboadingScreen(
                     shape = MaterialTheme.shapes.medium,
                     border = BorderStroke(1.dp, color = Color(0xFF2B5EC0))
                 ) {
-                    Text(text = "Sign in")
+                    Text(text = "Sign in", fontFamily = FontFamily(Font(R.font.urbanist_regular)))
                 }
             }
 

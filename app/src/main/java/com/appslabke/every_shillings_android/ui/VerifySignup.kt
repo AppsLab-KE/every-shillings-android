@@ -1,6 +1,7 @@
 package com.appslabke.every_shillings_android.ui
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -36,14 +37,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
+import com.example.otp_screenvalidation_jetpackcompose.CommonOtpTextField
+
 
 @Composable
-fun VerifySignup(modifier: Modifier = Modifier) {
+fun VerifySignup(
+    modifier: Modifier = Modifier,
+    toHomeScreen: () -> Unit
+) {
     val code = rememberSaveable { mutableStateOf("") }
     val codeIsInvalid = rememberSaveable { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
+
+    val otpVal = remember {
+        mutableStateOf("")
+    }
     Box(modifier = modifier.fillMaxSize()) {
         Column(modifier = modifier
             .fillMaxWidth()
@@ -74,7 +84,7 @@ fun VerifySignup(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = modifier.height(10.dp))
             Text(
-                text = "Enter four digit code sent to your number",
+                text = "Enter six digit code sent to your number",
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
 
@@ -82,53 +92,71 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                 fontSize = 18.sp,
                 modifier = modifier.fillMaxWidth()
             )
-            OutlinedTextField(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(top = 70.dp)
-                    .focusRequester(focusRequester),
-                value = code.value,
-                onValueChange = {
-                    code.value = it
-                    if (code.value.length == 4) {
-                        focusManager.clearFocus()
-                        codeIsInvalid.value = false
-                    }
-                },
-                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-                label = { Text(text = "Code") },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { focusManager.clearFocus() }
-                ),
-                isError = codeIsInvalid.value
-            )
-            if (codeIsInvalid.value) {
-                Text(
-                    text = "Enter a valid code",
-                    color = MaterialTheme.colors.error,
 
-                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    modifier = modifier
+            Column() {
+                Row(
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
-                )
+                        .padding(top = 15.dp, start = 15.dp, end = 15.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                }
             }
+//            OutlinedTextField(
+//                modifier = modifier
+//                    .fillMaxWidth()
+//                    .padding(top = 70.dp)
+//                    .focusRequester(focusRequester),
+//                value = code.value,
+//                onValueChange = {
+//                    code.value = it
+//                    if (code.value.length == 4) {
+//                        focusManager.clearFocus()
+//                        codeIsInvalid.value = false
+//                    }
+//                },
+//                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
+//                label = { Text(text = "Code") },
+//                keyboardOptions = KeyboardOptions(
+//                    keyboardType = KeyboardType.Number,
+//                    imeAction = ImeAction.Done
+//                ),
+//                keyboardActions = KeyboardActions(
+//                    onDone = { focusManager.clearFocus() }
+//                ),
+//                isError = codeIsInvalid.value
+//            )
+//            if (codeIsInvalid.value) {
+//                Text(
+//                    text = "Enter a valid code",
+//                    color = MaterialTheme.colors.error,
+//
+//                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+//                    modifier = modifier
+//                        .fillMaxWidth()
+//                        .padding(top = 10.dp)
+//                )
+//            }
             Spacer(modifier = modifier.height(70.dp))
 
             AnnotatedResendCodeText()
             Spacer(modifier = modifier.height(30.dp))
             Button(
                 onClick = {
+                    toHomeScreen()
                     if (code.value.length!=4){
                         codeIsInvalid.value = true
-                    }else {
-                        /*TODO() go home*/
+                    }
+                    else {
                         codeIsInvalid.value = false
                         focusManager.clearFocus()
+
                     }
                 },
                 modifier = modifier.fillMaxWidth(),
@@ -137,7 +165,8 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Continue", fontSize = 18.sp,
+                Text(text = "Continue",
+                    fontSize = 18.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)))
             }
 
@@ -182,6 +211,8 @@ fun AnnotatedResendCodeText() {
 @Composable
 fun VerifySignupPreview() {
     EveryshillingsandroidTheme {
-        VerifySignup()
+        VerifySignup(
+            toHomeScreen = {}
+        )
     }
 }

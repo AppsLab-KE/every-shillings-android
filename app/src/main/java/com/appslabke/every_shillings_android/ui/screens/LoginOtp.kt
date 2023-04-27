@@ -22,13 +22,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+import com.example.otp_screenvalidation_jetpackcompose.CommonOtpTextField
+//import com.example.otp_screenvalidation_jetpackcompose.OTPTextFields
 
 // Login Otp Verification
+
 @Composable
 fun LoginOtp(
     navigatetoHome: () -> Unit,
 ) {
-
+    val otpVal = remember {
+        mutableStateOf("")
+    }
     val context = LocalContext.current
 
     val otpCode = remember {
@@ -42,6 +47,7 @@ fun LoginOtp(
     Surface(
         modifier = Modifier
             .fillMaxSize()
+            .padding(horizontal = 10.dp)
     ) {
 
         Column(
@@ -87,41 +93,54 @@ fun LoginOtp(
 
             Spacer(modifier = Modifier.height(45.dp))
 
-            Column {
-
-                OutlinedTextField(
-                    value = otpCode.value,
-                    onValueChange = { otp ->
-                        otpCode.value = otp
-                        isOtpValid.value = true
-                    },
-                    placeholder = { Text(text = "1234") },
-                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.urbanist_regular))),
+            Column() {
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp),
-                    singleLine = true,
-                    maxLines = 1,
-                    isError = !isOtpValid.value,
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color(0xFF2B5EC0),
-                        cursorColor = Color(0xFF2B5EC0)
-                    ),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number,
-                        imeAction = ImeAction.Go
-                    )
-                )
-
-                if (!isOtpValid.value) {
-                    Text(
-                        modifier = Modifier.padding(start = 22.dp, top = 2.dp),
-                        text = "Kindly enter a valid 4 digit Otp",
-                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.error
-                    )
+                        .padding(top = 15.dp, start = 15.dp, end = 15.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
                 }
+
+//                OutlinedTextField(
+//                    value = otpCode.value,
+//                    onValueChange = { otp ->
+//                        otpCode.value = otp
+//                        isOtpValid.value = true
+//                    },
+//                    placeholder = { Text(text = "1234") },
+//                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.urbanist_regular))),
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(horizontal = 20.dp),
+//                    singleLine = true,
+//                    maxLines = 1,
+//                    isError = !isOtpValid.value,
+//                    colors = TextFieldDefaults.outlinedTextFieldColors(
+//                        focusedBorderColor = Color(0xFF2B5EC0),
+//                        cursorColor = Color(0xFF2B5EC0)
+//                    ),
+//                    keyboardOptions = KeyboardOptions(
+//                        keyboardType = KeyboardType.Number,
+//                        imeAction = ImeAction.Go
+//                    )
+//                )
+//
+//                if (!isOtpValid.value) {
+//                    Text(
+//                        modifier = Modifier.padding(start = 22.dp, top = 2.dp),
+//                        text = "Kindly enter a valid 4 digit Otp",
+//                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+//                        style = MaterialTheme.typography.caption,
+//                        color = MaterialTheme.colors.error
+//                    )
+//                }
             }
 
             Spacer(modifier = Modifier.height(45.dp))
@@ -155,14 +174,21 @@ fun LoginOtp(
 
             Button(
                 onClick = {
-                    isOtpValid.value = validateCode(inputCode = otpCode.value)
+                    //isOtpValid.value = validateCode(inputCode = otpVal.value)
 
-                    if (isOtpValid.value) {
+                    if (otpVal.value.isNotEmpty()) {
                         // Verify Otp
                         Log.i("Code Valid", " - ${isOtpValid.value}")
+                        navigatetoHome()
                         Toast.makeText(
                             context,
                             "Valid - ${isOtpValid.value}", Toast.LENGTH_SHORT
+                        ).show()
+
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Sorry key in the OTP!", Toast.LENGTH_SHORT
                         ).show()
                     }
                 },
@@ -193,6 +219,7 @@ fun LoginOtp(
     }
 }
 
-fun validateCode(inputCode: String): Boolean {
-    return inputCode.length == 4
-}
+
+//    fun validateCode(inputCode: String): Boolean {
+//        return inputCode.length == 6
+//    }

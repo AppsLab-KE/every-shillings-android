@@ -57,7 +57,7 @@ fun SetNavGraph(
         )
         loginOtp(
             navigateToHome ={
-                //navController.navigate(Screens.Home.route)
+                navController.navigate(Screens.Home.route)
             }
         )
     }

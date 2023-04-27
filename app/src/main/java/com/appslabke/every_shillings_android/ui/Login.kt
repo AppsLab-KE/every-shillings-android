@@ -64,7 +64,7 @@ fun Login(
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "We will send you the four digit verification code",
+            text = "We will send you the six digit verification code",
             fontWeight = FontWeight.Normal,
             fontFamily = FontFamily(Font(R.font.urbanist_regular)),
             fontSize = 16.sp

@@ -174,16 +174,22 @@ fun LoginOtp(
 
             Button(
                 onClick = {
-                    //isOtpValid.value = validateCode(inputCode = otpCode.value)
+                    //isOtpValid.value = validateCode(inputCode = otpVal.value)
 
-                    if (isOtpValid.value) {
+                    if (otpVal.value.isNotEmpty()) {
                         // Verify Otp
                         Log.i("Code Valid", " - ${isOtpValid.value}")
+                        navigatetoHome()
                         Toast.makeText(
                             context,
                             "Valid - ${isOtpValid.value}", Toast.LENGTH_SHORT
                         ).show()
-                        navigatetoHome()
+
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Sorry key in the OTP!", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 },
                 enabled = true,
@@ -211,9 +217,9 @@ fun LoginOtp(
             }
         }
     }
-
-
-    fun validateCode(inputCode: String): Boolean {
-        return inputCode.length == 4
-    }
 }
+
+
+//    fun validateCode(inputCode: String): Boolean {
+//        return inputCode.length == 6
+//    }

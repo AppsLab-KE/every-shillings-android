@@ -84,7 +84,7 @@ fun VerifySignup(
             )
             Spacer(modifier = modifier.height(10.dp))
             Text(
-                text = "Enter four digit code sent to your number",
+                text = "Enter six digit code sent to your number",
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
 

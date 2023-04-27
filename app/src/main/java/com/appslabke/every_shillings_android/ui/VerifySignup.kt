@@ -1,6 +1,7 @@
 package com.appslabke.every_shillings_android.ui
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -37,8 +38,12 @@ import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 
+
 @Composable
-fun VerifySignup(modifier: Modifier = Modifier) {
+fun VerifySignup(
+    modifier: Modifier = Modifier,
+    toHomeScreen: () -> Unit
+) {
     val code = rememberSaveable { mutableStateOf("") }
     val codeIsInvalid = rememberSaveable { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
@@ -123,13 +128,15 @@ fun VerifySignup(modifier: Modifier = Modifier) {
             Spacer(modifier = modifier.height(30.dp))
             Button(
                 onClick = {
-                    if (code.value.length!=4){
-                        codeIsInvalid.value = true
-                    }else {
-                        /*TODO() go home*/
-                        codeIsInvalid.value = false
-                        focusManager.clearFocus()
-                    }
+                    toHomeScreen()
+//                    if (code.value.length!=4){
+//                        codeIsInvalid.value = true
+//                    }
+//                    else {
+//                        codeIsInvalid.value = false
+//                        focusManager.clearFocus()
+//
+//                    }
                 },
                 modifier = modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(16.dp),
@@ -137,7 +144,8 @@ fun VerifySignup(modifier: Modifier = Modifier) {
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Continue", fontSize = 18.sp,
+                Text(text = "Continue",
+                    fontSize = 18.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)))
             }
 
@@ -182,6 +190,8 @@ fun AnnotatedResendCodeText() {
 @Composable
 fun VerifySignupPreview() {
     EveryshillingsandroidTheme {
-        VerifySignup()
+        VerifySignup(
+            toHomeScreen = {}
+        )
     }
 }

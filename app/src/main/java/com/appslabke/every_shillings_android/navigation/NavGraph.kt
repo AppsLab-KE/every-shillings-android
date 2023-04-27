@@ -50,10 +50,14 @@ fun SetNavGraph(
                 navController.navigate(Screens.LoginOtpScreen.route)
             }
         )
-        verifySignup()
+        verifySignup(
+            toHomeScreen = {
+                navController.navigate(Screens.Home.route)
+            }
+        )
         loginOtp(
             navigateToHome ={
-                navController.navigate(Screens.Home.route)
+                //navController.navigate(Screens.Home.route)
             }
         )
     }
@@ -109,10 +113,14 @@ fun NavGraphBuilder.login(
 }
 
 //VerifySignup Screen
-fun NavGraphBuilder.verifySignup(){
+fun NavGraphBuilder.verifySignup(
+    toHomeScreen: () -> Unit
+){
     composable(route = Screens.SignUpOtpScreen.route){
         // call Login composable here
-        VerifySignup()
+        VerifySignup(
+           toHomeScreen = { toHomeScreen() }
+        )
     }
 }
 

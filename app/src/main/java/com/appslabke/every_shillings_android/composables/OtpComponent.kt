@@ -103,10 +103,10 @@ fun CommonOtpTextField(otp: MutableState<String>) {
         singleLine = true,
         onValueChange = { if (it.length <= max) otp.value = it },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(17.dp),
         modifier = Modifier
-            .width(60.dp)
-            .height(60.dp),
+            .width(50.dp)
+            .height(50.dp),
         maxLines = 1,
         textStyle = LocalTextStyle.current.copy(
             textAlign = TextAlign.Center

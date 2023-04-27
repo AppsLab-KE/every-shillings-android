@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
+import com.example.otp_screenvalidation_jetpackcompose.CommonOtpTextField
 
 
 @Composable
@@ -49,6 +50,10 @@ fun VerifySignup(
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
+
+    val otpVal = remember {
+        mutableStateOf("")
+    }
     Box(modifier = modifier.fillMaxSize()) {
         Column(modifier = modifier
             .fillMaxWidth()
@@ -87,41 +92,57 @@ fun VerifySignup(
                 fontSize = 18.sp,
                 modifier = modifier.fillMaxWidth()
             )
-            OutlinedTextField(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(top = 70.dp)
-                    .focusRequester(focusRequester),
-                value = code.value,
-                onValueChange = {
-                    code.value = it
-                    if (code.value.length == 4) {
-                        focusManager.clearFocus()
-                        codeIsInvalid.value = false
-                    }
-                },
-                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-                label = { Text(text = "Code") },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { focusManager.clearFocus() }
-                ),
-                isError = codeIsInvalid.value
-            )
-            if (codeIsInvalid.value) {
-                Text(
-                    text = "Enter a valid code",
-                    color = MaterialTheme.colors.error,
 
-                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    modifier = modifier
+            Column() {
+                Row(
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
-                )
+                        .padding(top = 15.dp, start = 15.dp, end = 15.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                    CommonOtpTextField(otp = otpVal)
+                }
             }
+//            OutlinedTextField(
+//                modifier = modifier
+//                    .fillMaxWidth()
+//                    .padding(top = 70.dp)
+//                    .focusRequester(focusRequester),
+//                value = code.value,
+//                onValueChange = {
+//                    code.value = it
+//                    if (code.value.length == 4) {
+//                        focusManager.clearFocus()
+//                        codeIsInvalid.value = false
+//                    }
+//                },
+//                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
+//                label = { Text(text = "Code") },
+//                keyboardOptions = KeyboardOptions(
+//                    keyboardType = KeyboardType.Number,
+//                    imeAction = ImeAction.Done
+//                ),
+//                keyboardActions = KeyboardActions(
+//                    onDone = { focusManager.clearFocus() }
+//                ),
+//                isError = codeIsInvalid.value
+//            )
+//            if (codeIsInvalid.value) {
+//                Text(
+//                    text = "Enter a valid code",
+//                    color = MaterialTheme.colors.error,
+//
+//                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+//                    modifier = modifier
+//                        .fillMaxWidth()
+//                        .padding(top = 10.dp)
+//                )
+//            }
             Spacer(modifier = modifier.height(70.dp))
 
             AnnotatedResendCodeText()
@@ -129,14 +150,14 @@ fun VerifySignup(
             Button(
                 onClick = {
                     toHomeScreen()
-//                    if (code.value.length!=4){
-//                        codeIsInvalid.value = true
-//                    }
-//                    else {
-//                        codeIsInvalid.value = false
-//                        focusManager.clearFocus()
-//
-//                    }
+                    if (code.value.length!=4){
+                        codeIsInvalid.value = true
+                    }
+                    else {
+                        codeIsInvalid.value = false
+                        focusManager.clearFocus()
+
+                    }
                 },
                 modifier = modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(16.dp),

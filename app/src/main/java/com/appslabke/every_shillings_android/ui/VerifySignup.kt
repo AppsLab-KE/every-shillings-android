@@ -1,15 +1,18 @@
 package com.appslabke.every_shillings_android.ui
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,7 +20,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
@@ -28,7 +30,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
@@ -37,15 +38,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
-import com.example.otp_screenvalidation_jetpackcompose.CommonOtpTextField
 
 
 @Composable
 fun VerifySignup(
     modifier: Modifier = Modifier,
-    toHomeScreen: () -> Unit
+    toHomeScreen: () -> Unit,
+    navigateBack: () -> Unit
 ) {
     val code = rememberSaveable { mutableStateOf("") }
+    val otpCode = rememberSaveable { mutableStateOf("") }
     val codeIsInvalid = rememberSaveable { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
@@ -55,25 +57,40 @@ fun VerifySignup(
         mutableStateOf("")
     }
     Box(modifier = modifier.fillMaxSize()) {
-        Column(modifier = modifier
-            .fillMaxWidth()
-            .padding(PaddingValues(20.dp))
-            .verticalScroll(scrollState)
-            .pointerInput(Unit) {
-                detectTapGestures {
-                    focusManager.clearFocus()
-                }
-            },
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(PaddingValues(20.dp))
+                .verticalScroll(scrollState)
+                .pointerInput(Unit) {
+                    detectTapGestures {
+                        focusManager.clearFocus()
+                    }
+                },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Sign Up",
-                color = MaterialTheme.colors.primary,
+            Box(
+                modifier = modifier.fillMaxWidth()
+            ) {
+                // Spacer(modifier = modifier.width(10.dp))
+                Text(
+                    text = "Sign Up",
+                    color = MaterialTheme.colors.primary,
+                    textAlign = TextAlign.Center,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 25.sp,
+                    modifier = modifier.align(Alignment.Center)
+                )
+                IconButton(
+                    modifier = modifier.align(Alignment.CenterStart),
+                    onClick = {
+                        navigateBack()
+                    }) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Go back")
+                }
+            }
 
-                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                fontWeight = FontWeight.Bold,
-                fontSize = 25.sp
-            )
             Spacer(modifier = modifier.height(30.dp))
             Text(
                 text = "Verify your phone number",
@@ -92,22 +109,64 @@ fun VerifySignup(
                 fontSize = 18.sp,
                 modifier = modifier.fillMaxWidth()
             )
-
-            Column() {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 15.dp, start = 15.dp, end = 15.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    CommonOtpTextField(otp = otpVal)
-                    CommonOtpTextField(otp = otpVal)
-                    CommonOtpTextField(otp = otpVal)
-                    CommonOtpTextField(otp = otpVal)
-                    CommonOtpTextField(otp = otpVal)
-                    CommonOtpTextField(otp = otpVal)
+            Spacer(modifier = modifier.height(70.dp))
+            BasicTextField(
+                value = otpCode.value,
+                onValueChange = {
+                    if (it.length <= 6) {
+                        otpCode.value = it
+                    }
+                    if (otpCode.value.length == 6) {
+                        focusManager.clearFocus()
+                        codeIsInvalid.value = false
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.NumberPassword
+                ),
+                decorationBox = {
+                    Row(horizontalArrangement = Arrangement.Center) {
+                        repeat(6) { index ->
+                            val numChar = when {
+                                index >= otpCode.value.length -> ""
+                                else -> otpCode.value[index].toString()
+                            }
+                            val isFocused = otpCode.value.length == index
+                            Text(
+                                modifier = Modifier
+                                    .width(40.dp)
+                                    .border(
+                                        width = if (isFocused) 2.dp else 1.dp,
+                                        color = if (isFocused) MaterialTheme.colors.primary else Color.Gray,
+                                        shape = RoundedCornerShape(10.dp)
+                                    )
+                                    .padding(2.dp),
+                                text = numChar,
+                                color = MaterialTheme.colors.onBackground,
+                                style = MaterialTheme.typography.h4,
+                                textAlign = TextAlign.Center
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                        }
+                    }
                 }
-            }
+            )
+
+            /* Column() {
+                 Row(
+                     modifier = Modifier
+                         .fillMaxWidth()
+                         .padding(top = 50.dp),
+                     horizontalArrangement = Arrangement.SpaceEvenly
+                 ) {
+                     CommonOtpTextField(otp = otpVal)
+                     CommonOtpTextField(otp = otpVal)
+                     CommonOtpTextField(otp = otpVal)
+                     CommonOtpTextField(otp = otpVal)
+                     CommonOtpTextField(otp = otpVal)
+                     CommonOtpTextField(otp = otpVal)
+                 }
+             }*/
 //            OutlinedTextField(
 //                modifier = modifier
 //                    .fillMaxWidth()
@@ -212,7 +271,8 @@ fun AnnotatedResendCodeText() {
 fun VerifySignupPreview() {
     EveryshillingsandroidTheme {
         VerifySignup(
-            toHomeScreen = {}
+            toHomeScreen = {},
+            navigateBack = {}
         )
     }
 }

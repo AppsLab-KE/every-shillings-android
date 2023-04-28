@@ -13,27 +13,36 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+import com.datadog.android.compose.ExperimentalTrackingApi
+import com.datadog.android.compose.trackClick
 
+@OptIn(ExperimentalTrackingApi::class)
 @Composable
 fun OnboadingScreen(
     navigateToLoginScreen: () -> Unit,
     navigateToSigUpScreen: () -> Unit
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.fillMaxSize().padding(horizontal = 33.dp),
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 33.dp),
             verticalArrangement = Arrangement.SpaceAround
         ) {
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentSize(align = Alignment.Center)) {
-                Image(painter =
-                painterResource(id = R.drawable.dummy_logo),
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentSize(align = Alignment.Center)
+            ) {
+                Image(
+                    painter =
+                    painterResource(id = R.drawable.dummy_logo),
                     contentDescription = "",
-                    modifier = Modifier.size(115.dp, 160.dp))
+                    modifier = Modifier.size(115.dp, 160.dp)
+                )
 
             }
 
@@ -54,7 +63,8 @@ fun OnboadingScreen(
             Column(modifier = Modifier) {
 
                 // Sign up
-                Button(onClick = {  navigateToSigUpScreen()},
+                Button(
+                    onClick = trackClick(targetName = "Signup") { navigateToSigUpScreen() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -69,7 +79,8 @@ fun OnboadingScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Sign in
-                OutlinedButton(onClick = { navigateToLoginScreen() },
+                OutlinedButton(
+                    onClick = trackClick(targetName = "Login") { navigateToLoginScreen() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),

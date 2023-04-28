@@ -38,8 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
+import com.datadog.android.compose.ExperimentalTrackingApi
+import com.datadog.android.compose.trackClick
 
 
+@OptIn(ExperimentalTrackingApi::class)
 @Composable
 fun VerifySignup(
     modifier: Modifier = Modifier,
@@ -113,10 +116,10 @@ fun VerifySignup(
             BasicTextField(
                 value = otpCode.value,
                 onValueChange = {
-                    if (it.length <= 6) {
+                    if (it.length <= 4) {
                         otpCode.value = it
                     }
-                    if (otpCode.value.length == 6) {
+                    if (otpCode.value.length == 4) {
                         focusManager.clearFocus()
                         codeIsInvalid.value = false
                     }
@@ -126,7 +129,7 @@ fun VerifySignup(
                 ),
                 decorationBox = {
                     Row(horizontalArrangement = Arrangement.Center) {
-                        repeat(6) { index ->
+                        repeat(4) { index ->
                             val numChar = when {
                                 index >= otpCode.value.length -> ""
                                 else -> otpCode.value[index].toString()
@@ -134,7 +137,8 @@ fun VerifySignup(
                             val isFocused = otpCode.value.length == index
                             Text(
                                 modifier = Modifier
-                                    .width(40.dp)
+                                    .width(45.dp)
+                                    .height(45.dp)
                                     .border(
                                         width = if (isFocused) 2.dp else 1.dp,
                                         color = if (isFocused) MaterialTheme.colors.primary else Color.Gray,
@@ -207,12 +211,11 @@ fun VerifySignup(
             AnnotatedResendCodeText()
             Spacer(modifier = modifier.height(30.dp))
             Button(
-                onClick = {
+                onClick = trackClick(targetName = "Verify OTP") {
                     toHomeScreen()
-                    if (code.value.length!=4){
+                    if (code.value.length != 4) {
                         codeIsInvalid.value = true
-                    }
-                    else {
+                    } else {
                         codeIsInvalid.value = false
                         focusManager.clearFocus()
 

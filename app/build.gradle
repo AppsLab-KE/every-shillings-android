@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.datadoghq.dd-sdk-android-gradle-plugin'
 }
 
 android {
@@ -64,6 +65,13 @@ dependencies {
 
     // Currency Graph
     implementation 'com.github.tehras:charts:0.2.4-alpha'
+
+    // Sms retriever
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+
+    // Datadog
+    implementation "com.datadoghq:dd-sdk-android:1.19.0"
+    implementation "com.datadoghq:dd-sdk-android-compose:1.19.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

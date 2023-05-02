@@ -1,6 +1,5 @@
 package com.appslabke.every_shillings_android.ui.screens
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -16,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -34,7 +32,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
@@ -55,7 +52,6 @@ fun LoginOtp(
         mutableStateOf(true)
     }
 
-    ///
     val textList = remember {
         mutableListOf(
             mutableStateOf(
@@ -146,63 +142,27 @@ fun LoginOtp(
             Spacer(modifier = Modifier.height(45.dp))
 
             Column {
-
-//                OutlinedTextField(
-//                    value = otpCode.value,
-//                    onValueChange = { otp ->
-//                        otpCode.value = otp
-//                        isOtpValid.value = true
-//                    },
-//                    placeholder = { Text(text = "1234") },
-//                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.urbanist_regular))),
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(horizontal = 20.dp),
-//                    singleLine = true,
-//                    maxLines = 1,
-//                    isError = !isOtpValid.value,
-//                    colors = TextFieldDefaults.outlinedTextFieldColors(
-//                        focusedBorderColor = Color(0xFF2B5EC0),
-//                        cursorColor = Color(0xFF2B5EC0)
-//                    ),
-//                    keyboardOptions = KeyboardOptions(
-//                        keyboardType = KeyboardType.Number,
-//                        imeAction = ImeAction.Go
-//                    )
-//                )
-
-//                if (!isOtpValid.value) {
-//                    Text(
-//                        modifier = Modifier.padding(start = 22.dp, top = 2.dp),
-//                        text = "Kindly enter a valid 4 digit Otp",
-//                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-//                        style = MaterialTheme.typography.caption,
-//                        color = MaterialTheme.colors.error
-//                    )
-//                }
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp, start = 10.dp, end = 10.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
-                        //.align(Alignment.TopCenter)
                 ) {
                     for (i in textList.indices) {
-                        InputView(
+                        OtpView(
                             value = textList[i].value,
                             onValueChange = { newValue ->
                                 // Returning when old value is not empty
                                 if (textList[i].value.text != "") {
                                     if(newValue.text == "") {
-                                        // before returning, if new value is empty, set text field to empty
+                                        // if new value is empty, set text field to empty
                                         textList[i].value = TextFieldValue(
                                             text = "",
                                             selection = TextRange(0)
                                         )
                                     }
-                                    return@InputView
+                                    return@OtpView
                                 }
                                 // Set new value and move to the end
                                 textList[i].value = TextFieldValue(
@@ -210,20 +170,22 @@ fun LoginOtp(
                                     selection = TextRange(newValue.text.length)
                                 )
 
-                                connectInputedCode(textList) {
+                                mergeOtp(textList) {
                                     focusManager.clearFocus()
                                     keyboardController?.hide()
 
                                     if(it) {
                                         Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                                        isOtpValid.value = true
                                     } else {
                                         Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+                                        isOtpValid.value = false
                                         for (text in textList) {
                                             text.value = TextFieldValue(
                                                 text = "",
                                                 selection = TextRange(0)
                                             )
-                                        }
+                                        }                                        
                                     }
                                 }
 
@@ -238,6 +200,17 @@ fun LoginOtp(
                     })
                 }
 
+                if (!isOtpValid.value) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 22.dp, top = 2.dp)
+                            .align(alignment = Alignment.CenterHorizontally),
+                        text = "Kindly enter a valid Otp",
+                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colors.error )
+                }
             }
 
             Spacer(modifier = Modifier.height(45.dp))
@@ -309,7 +282,7 @@ fun LoginOtp(
     }
 }
 
-private fun connectInputedCode(
+private fun mergeOtp(
     textList: List<MutableState<TextFieldValue>>,
     onVerifyCode : ((success: Boolean) -> Unit)? = null
 ) {
@@ -318,7 +291,7 @@ private fun connectInputedCode(
         code += text.value.text
     }
     if (code.length == 4) {
-        verifyCode(
+        verifyOtp(
             code,
             onSuccess = {
                 onVerifyCode?.let {
@@ -334,7 +307,7 @@ private fun connectInputedCode(
     }
 }
 
-private fun verifyCode(
+private fun verifyOtp(
     code : String,
     onSuccess : () -> Unit,
     onFail : () -> Unit
@@ -358,7 +331,7 @@ private fun nextFocus(textList: List<MutableState<TextFieldValue>>, requesterLis
 }
 
 @Composable
-private fun InputView(
+private fun OtpView(
     value: TextFieldValue,
     onValueChange : (value : TextFieldValue) -> Unit,
     focusRequester: FocusRequester
@@ -368,7 +341,7 @@ private fun InputView(
         value = value,
         onValueChange = onValueChange,
         modifier = Modifier
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = 7.dp)
             .border(BorderStroke(1.dp, Color(0xFF2B5EC0)), shape = RoundedCornerShape(5.dp))
             .background(Color.Transparent)
             .wrapContentSize()
@@ -377,8 +350,8 @@ private fun InputView(
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier
-                    .width(50.dp)
-                    .height(70.dp),
+                    .width(40.dp)
+                    .height(60.dp),
                 contentAlignment = Alignment.Center
             ) {
                 innerTextField()
@@ -387,9 +360,10 @@ private fun InputView(
         cursorBrush = SolidColor(Color.Black),
         textStyle = TextStyle(
             color = Color.Black,
-            fontSize = 26.sp,
+            fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily(Font(R.font.urbanist_regular))
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
@@ -397,10 +371,5 @@ private fun InputView(
         ),
         keyboardActions = KeyboardActions(onDone = null)
     )
-
 }
 
-
-//fun validateCode(inputCode: String): Boolean {
-//    return inputCode.length == 4
-//}

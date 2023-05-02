@@ -1,11 +1,12 @@
 package com.appslabke.every_shillings_android.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.composables.PaymentMethodDropDown
+import com.appslabke.every_shillings_android.ui.validatePhoneNumber
+import com.togitech.ccp.component.getFullPhoneNumber
+import com.togitech.ccp.component.getOnlyPhoneNumber
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
@@ -27,8 +31,8 @@ fun TopupScreen() {
     ) {
         Column (
             modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 48.dp, start = 0.dp, end = 0.dp)
+                .fillMaxSize().background(Color.Black)
+                .padding(top = 48.dp)
         ){
             Text(text = "Top up Account",
                 modifier = Modifier
@@ -60,7 +64,25 @@ fun TopupScreen() {
                 )
 
             }
+            Spacer(modifier = Modifier.height(50.dp))
             //top account button
+            Button(
+                onClick = { /*Top up user transaction*/ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(vertical = 20.dp)
+                ,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFF2B5EC0),
+                    contentColor = Color.White
+                )
+            ) {
+                Text(text = "Top Account",
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    fontSize = 16.sp
+                )
+            }
 
 
 

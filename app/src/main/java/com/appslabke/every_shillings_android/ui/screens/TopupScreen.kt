@@ -31,7 +31,7 @@ fun TopupScreen() {
     ) {
         Column (
             modifier = Modifier
-                .fillMaxSize().background(Color.Black)
+                .fillMaxSize()
                 .padding(top = 48.dp)
         ){
             Text(text = "Top up Account",
@@ -47,13 +47,15 @@ fun TopupScreen() {
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 modifier = Modifier.padding(start = 20.dp))
+
             Spacer(modifier = Modifier.height(15.dp))
+
             Surface(modifier = Modifier
                 .height(160.dp)
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
                 shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(1.dp, color = MaterialTheme.colors.primary)
+                border = BorderStroke(1.dp, color = Color(0xFF2B5EC0))
             ) {
                 Text(text = "Amount: $topUpAmount",
                     modifier = Modifier
@@ -70,8 +72,8 @@ fun TopupScreen() {
                 onClick = { /*Top up user transaction*/ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(vertical = 20.dp)
+                    .defaultMinSize(minHeight = 50.dp)
+                    .padding(horizontal = 20.dp)
                 ,
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFF2B5EC0),

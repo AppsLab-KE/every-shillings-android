@@ -20,12 +20,12 @@ android {
             useSupportLibrary true
         }
 
-        def propertiesFile = rootProject.file('local.properties')
-        Properties properties = new Properties()
-        properties.load(new FileInputStream(propertiesFile))
-
-        buildConfigField('String', 'CLIENT_TOKEN', properties['CLIENT_TOKEN'])
-        buildConfigField('String', 'APP_ID', properties['APP_ID'])
+//        def propertiesFile = rootProject.file('local.properties')
+//        Properties properties = new Properties()
+//        properties.load(new FileInputStream(propertiesFile))
+//
+//        buildConfigField('String', 'CLIENT_TOKEN', properties['CLIENT_TOKEN'])
+//        buildConfigField('String', 'APP_ID', properties['APP_ID'])
     }
 
     buildTypes {

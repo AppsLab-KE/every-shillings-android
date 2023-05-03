@@ -151,10 +151,12 @@ fun LoginOtp(
                 ) {
                     for (i in textList.indices) {
                         OtpView(
+                            isOtpValid = isOtpValid.value,
                             value = textList[i].value,
                             onValueChange = { newValue ->
                                 // Returning when old value is not empty
                                 if (textList[i].value.text != "") {
+                                    isOtpValid.value = true
                                     if(newValue.text == "") {
                                         // if new value is empty, set text field to empty
                                         textList[i].value = TextFieldValue(
@@ -201,15 +203,18 @@ fun LoginOtp(
                 }
 
                 if (!isOtpValid.value) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 22.dp, top = 2.dp)
-                            .align(alignment = Alignment.CenterHorizontally),
-                        text = "Kindly enter a valid Otp",
-                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.error )
+                    Box(modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                        ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(start = 22.dp, top = 2.dp)
+                                .align(alignment = Alignment.Center),
+                            text = "Kindly enter a valid Otp",
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                            style = MaterialTheme.typography.caption,
+                            color = MaterialTheme.colors.error )
+                        }
                 }
             }
 
@@ -332,6 +337,7 @@ private fun nextFocus(textList: List<MutableState<TextFieldValue>>, requesterLis
 
 @Composable
 private fun OtpView(
+    isOtpValid : Boolean,
     value: TextFieldValue,
     onValueChange : (value : TextFieldValue) -> Unit,
     focusRequester: FocusRequester
@@ -340,12 +346,24 @@ private fun OtpView(
         readOnly = false,
         value = value,
         onValueChange = onValueChange,
-        modifier = Modifier
-            .padding(horizontal = 7.dp)
-            .border(BorderStroke(1.dp, Color(0xFF2B5EC0)), shape = RoundedCornerShape(5.dp))
-            .background(Color.Transparent)
-            .wrapContentSize()
-            .focusRequester(focusRequester),
+        modifier = if (isOtpValid) {
+            Modifier
+                .padding(horizontal = 7.dp)
+                .border(BorderStroke(1.dp, Color(0xFF2B5EC0)), shape = RoundedCornerShape(5.dp))
+                .background(Color.Transparent)
+                .wrapContentSize()
+                .focusRequester(focusRequester)
+        } else {
+            Modifier
+                .padding(horizontal = 7.dp)
+                .border(BorderStroke(1.dp, MaterialTheme.colors.error), shape = RoundedCornerShape(5.dp))
+                .background(Color.Transparent)
+                .wrapContentSize()
+                .focusRequester(focusRequester)
+        }
+
+
+        ,
         maxLines = 1,
         decorationBox = { innerTextField ->
             Box(

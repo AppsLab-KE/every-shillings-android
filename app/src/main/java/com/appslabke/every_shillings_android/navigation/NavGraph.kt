@@ -7,10 +7,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.appslabke.every_shillings_android.ui.Login
 import com.appslabke.every_shillings_android.ui.Signup
-import com.appslabke.every_shillings_android.ui.VerifySignup
 import com.appslabke.every_shillings_android.ui.screens.HomeScreen
 import com.appslabke.every_shillings_android.ui.screens.LoginOtp
 import com.appslabke.every_shillings_android.ui.screens.OnboadingScreen
+import com.appslabke.every_shillings_android.ui.screens.VerifySignUp
 
 /*
 * We used Extension Functions for every Screen referencing NavGraphBuilder object
@@ -123,7 +123,7 @@ fun NavGraphBuilder.verifySignup(
 ){
     composable(route = Screens.SignUpOtpScreen.route){
         // call Login composable here
-        VerifySignup(
+        VerifySignUp(
             toHomeScreen = { toHomeScreen() },
             navigateBack = { navigateBack() }
         )

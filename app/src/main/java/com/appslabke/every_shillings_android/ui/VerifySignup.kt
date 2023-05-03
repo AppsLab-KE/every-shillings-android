@@ -1,281 +1,398 @@
-package com.appslabke.every_shillings_android.ui
+package com.appslabke.every_shillings_android.ui.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
-import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
-import com.datadog.android.compose.ExperimentalTrackingApi
-import com.datadog.android.compose.trackClick
+
+import kotlinx.coroutines.delay
+
+// Sign up Otp Verification
+@OptIn(ExperimentalComposeUiApi::class)
 
 
-@OptIn(ExperimentalTrackingApi::class)
 @Composable
-fun VerifySignup(
-    modifier: Modifier = Modifier,
+fun VerifySignUp(
     toHomeScreen: () -> Unit,
     navigateBack: () -> Unit
 ) {
-    val code = rememberSaveable { mutableStateOf("") }
-    val otpCode = rememberSaveable { mutableStateOf("") }
-    val codeIsInvalid = rememberSaveable { mutableStateOf(false) }
-    val focusRequester = remember { FocusRequester() }
-    val focusManager = LocalFocusManager.current
-    val scrollState = rememberScrollState()
 
-    val otpVal = remember {
+    val otpCode = remember {
         mutableStateOf("")
     }
-    Box(modifier = modifier.fillMaxSize()) {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(PaddingValues(20.dp))
-                .verticalScroll(scrollState)
-                .pointerInput(Unit) {
-                    detectTapGestures {
-                        focusManager.clearFocus()
-                    }
-                },
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
-                modifier = modifier.fillMaxWidth()
-            ) {
-                // Spacer(modifier = modifier.width(10.dp))
-                Text(
-                    text = "Sign Up",
-                    color = MaterialTheme.colors.primary,
-                    textAlign = TextAlign.Center,
-                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp,
-                    modifier = modifier.align(Alignment.Center)
-                )
-                IconButton(
-                    modifier = modifier.align(Alignment.CenterStart),
-                    onClick = {
-                        navigateBack()
-                    }) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Go back")
-                }
-            }
 
-            Spacer(modifier = modifier.height(30.dp))
-            Text(
-                text = "Verify your phone number",
-
-                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
-            Spacer(modifier = modifier.height(10.dp))
-            Text(
-                text = "Enter six digit code sent to your number",
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Normal,
-
-                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                fontSize = 18.sp,
-                modifier = modifier.fillMaxWidth()
-            )
-            Spacer(modifier = modifier.height(70.dp))
-            BasicTextField(
-                value = otpCode.value,
-                onValueChange = {
-                    if (it.length <= 4) {
-                        otpCode.value = it
-                    }
-                    if (otpCode.value.length == 4) {
-                        focusManager.clearFocus()
-                        codeIsInvalid.value = false
-                    }
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.NumberPassword
-                ),
-                decorationBox = {
-                    Row(horizontalArrangement = Arrangement.Center) {
-                        repeat(4) { index ->
-                            val numChar = when {
-                                index >= otpCode.value.length -> ""
-                                else -> otpCode.value[index].toString()
-                            }
-                            val isFocused = otpCode.value.length == index
-                            Text(
-                                modifier = Modifier
-                                    .width(45.dp)
-                                    .height(45.dp)
-                                    .border(
-                                        width = if (isFocused) 2.dp else 1.dp,
-                                        color = if (isFocused) MaterialTheme.colors.primary else Color.Gray,
-                                        shape = RoundedCornerShape(10.dp)
-                                    )
-                                    .padding(2.dp),
-                                text = numChar,
-                                color = MaterialTheme.colors.onBackground,
-                                style = MaterialTheme.typography.h4,
-                                textAlign = TextAlign.Center
-                            )
-                            Spacer(modifier = Modifier.width(16.dp))
-                        }
-                    }
-                }
-            )
-
-            /* Column() {
-                 Row(
-                     modifier = Modifier
-                         .fillMaxWidth()
-                         .padding(top = 50.dp),
-                     horizontalArrangement = Arrangement.SpaceEvenly
-                 ) {
-                     CommonOtpTextField(otp = otpVal)
-                     CommonOtpTextField(otp = otpVal)
-                     CommonOtpTextField(otp = otpVal)
-                     CommonOtpTextField(otp = otpVal)
-                     CommonOtpTextField(otp = otpVal)
-                     CommonOtpTextField(otp = otpVal)
-                 }
-             }*/
-//            OutlinedTextField(
-//                modifier = modifier
-//                    .fillMaxWidth()
-//                    .padding(top = 70.dp)
-//                    .focusRequester(focusRequester),
-//                value = code.value,
-//                onValueChange = {
-//                    code.value = it
-//                    if (code.value.length == 4) {
-//                        focusManager.clearFocus()
-//                        codeIsInvalid.value = false
-//                    }
-//                },
-//                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-//                label = { Text(text = "Code") },
-//                keyboardOptions = KeyboardOptions(
-//                    keyboardType = KeyboardType.Number,
-//                    imeAction = ImeAction.Done
-//                ),
-//                keyboardActions = KeyboardActions(
-//                    onDone = { focusManager.clearFocus() }
-//                ),
-//                isError = codeIsInvalid.value
-//            )
-//            if (codeIsInvalid.value) {
-//                Text(
-//                    text = "Enter a valid code",
-//                    color = MaterialTheme.colors.error,
-//
-//                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-//                    modifier = modifier
-//                        .fillMaxWidth()
-//                        .padding(top = 10.dp)
-//                )
-//            }
-            Spacer(modifier = modifier.height(70.dp))
-
-            AnnotatedResendCodeText()
-            Spacer(modifier = modifier.height(30.dp))
-            Button(
-                onClick = trackClick(targetName = "Verify OTP") {
-                    toHomeScreen()
-                    if (code.value.length != 4) {
-                        codeIsInvalid.value = true
-                    } else {
-                        codeIsInvalid.value = false
-                        focusManager.clearFocus()
-
-                    }
-                },
-                modifier = modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White
-                )
-            ) {
-                Text(text = "Continue",
-                    fontSize = 18.sp,
-                    fontFamily = FontFamily(Font(R.font.urbanist_regular)))
-            }
-
-        }
+    val isOtpValid = remember {
+        mutableStateOf(true)
     }
-}
 
-@Composable
-fun AnnotatedResendCodeText() {
+    val textList = remember {
+        mutableListOf(
+            mutableStateOf(
+                TextFieldValue(
+                    text = "",
+                    selection = TextRange(0)
+                )
+            ),
+            mutableStateOf(
+                TextFieldValue(
+                    text = "",
+                    selection = TextRange(0)
+                )
+            ),
+            mutableStateOf(
+                TextFieldValue(
+                    text = "",
+                    selection = TextRange(0)
+                )
+            ),
+            mutableStateOf(
+                TextFieldValue(
+                    text = "",
+                    selection = TextRange(0)
+                )
+            )
+        )
+    }
+
+    val requesterList = listOf(
+        FocusRequester(),
+        FocusRequester(),
+        FocusRequester(),
+        FocusRequester()
+    )
+
     val context = LocalContext.current
-    val annotatedText = buildAnnotatedString {
-        append("Didn't receive the code? ")
-        pushStringAnnotation(
-            tag = "resend_code",
-            annotation = "Do resend code"
-        )
-        withStyle(
-            style = SpanStyle(
-                color = MaterialTheme.colors.primary
-            )
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 10.dp)
+    ) {
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            append("Click here to resend")
-        }
-        pop()
-    }
-    ClickableText(
-        text = annotatedText,
-        style = TextStyle.Default.copy(fontSize = 18.sp),
-        onClick = { offset ->
-            annotatedText.getStringAnnotations(
-                tag = "resend_code",
-                start = offset,
-                end = offset
-            ).firstOrNull()?.let {
-                Toast.makeText(context, "TODO() resend code", Toast.LENGTH_SHORT).show()
-                /*TODO()*/
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Text(
+                text = "Sign up",
+                style = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.urbanist_bold)),
+                    color = Color(0xFF2B5EC0),
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "Verify Your Phone Number",
+                style = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.urbanist_medium)),
+                    color = Color.Black,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Text(
+                text = "Enter the 4 digit code sent to your number",
+                style = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    color = Color.Black,
+                    fontSize = 16.sp
+                )
+            )
+
+            Spacer(modifier = Modifier.height(45.dp))
+
+
+            Column {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    for (i in textList.indices) {
+                        OtpView_(
+                            isOtpValid = isOtpValid.value,
+                            value = textList[i].value,
+                            onValueChange = { newValue ->
+                                // Returning when old value is not empty
+                                if (textList[i].value.text != "") {
+                                    isOtpValid.value = true
+                                    if (newValue.text == "") {
+                                        // if new value is empty, set text field to empty
+                                        textList[i].value = TextFieldValue(
+                                            text = "",
+                                            selection = TextRange(0)
+                                        )
+                                    }
+                                    return@OtpView_
+                                }
+                                // Set new value and move to the end
+                                textList[i].value = TextFieldValue(
+                                    text = newValue.text,
+                                    selection = TextRange(newValue.text.length)
+                                )
+
+                                mergeOtp(textList) {
+                                    focusManager.clearFocus()
+                                    keyboardController?.hide()
+
+                                    if (it) {
+                                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT)
+                                            .show()
+                                        isOtpValid.value = true
+                                    } else {
+                                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+                                        isOtpValid.value = false
+                                        for (text in textList) {
+                                            text.value = TextFieldValue(
+                                                text = "",
+                                                selection = TextRange(0)
+                                            )
+                                        }
+                                    }
+                                }
+
+                                nextFocus(textList, requesterList)
+                            },
+                            focusRequester = requesterList[i]
+                        )
+                    }
+
+                    LaunchedEffect(key1 = null, block = {
+                        delay(300)
+                        requesterList[0].requestFocus()
+                    })
+                }
+
+                if (!isOtpValid.value) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(start = 22.dp, top = 2.dp)
+                                .align(alignment = Alignment.Center),
+                            text = "Kindly enter a valid Otp",
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                            style = MaterialTheme.typography.caption,
+                            color = MaterialTheme.colors.error
+                        )
+                    }
+
+                }
+
+                Spacer(modifier = Modifier.height(45.dp))
+
+                Row(modifier = Modifier.padding(horizontal = 20.dp)) {
+                    Text(
+                        text = "Didn't receive a code?",
+                        style = TextStyle(
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                            color = Color.Black,
+                            fontSize = 15.sp
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.width(5.dp))
+
+                    Text(text = "Click here to resend",
+                        style = TextStyle(
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                            textDecoration = TextDecoration.Underline,
+                            fontSize = 15.sp,
+                            color = Color(0xFF2B5EC0)
+                        ),
+                        modifier = Modifier.clickable {
+                            // TODO
+                        }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Button(
+                    onClick = {
+                              toHomeScreen()
+                    },
+                    enabled = true,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .height(45.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(0xFF2B5EC0),
+                        contentColor = Color.White
+                    ),
+                    elevation = ButtonDefaults.elevation(
+                        defaultElevation = 3.dp,
+                        pressedElevation = 0.dp,
+                    )
+                ) {
+                    Text(
+                        text = "Continue",
+                        style = TextStyle(
+                            fontFamily = FontFamily(Font(R.font.urbanist_bold)),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp
+                        )
+                    )
+                }
             }
-        })
+        }
+    }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun VerifySignupPreview() {
-    EveryshillingsandroidTheme {
-        VerifySignup(
-            toHomeScreen = {},
-            navigateBack = {}
+
+private fun mergeOtp(
+    textList: List<MutableState<TextFieldValue>>,
+    onVerifyCode : ((success: Boolean) -> Unit)? = null
+) {
+    var code = ""
+    for (text in textList) {
+        code += text.value.text
+    }
+    if (code.length == 4) {
+        verifyOtp(
+            code,
+            onSuccess = {
+                onVerifyCode?.let {
+                    it(true)
+                }
+            },
+            onFail = {
+                onVerifyCode?.let {
+                    it(false)
+                }
+            }
         )
     }
 }
+
+private fun verifyOtp(
+    code : String,
+    onSuccess : () -> Unit,
+    onFail : () -> Unit
+) {
+    if(code == "1234") {
+        onSuccess()
+    } else {
+        onFail()
+    }
+}
+
+private fun nextFocus(textList: List<MutableState<TextFieldValue>>, requesterList: List<FocusRequester>) {
+    for (index in textList.indices) {
+        if (textList[index].value.text == "") {
+            if (index < textList.size) {
+                requesterList[index].requestFocus()
+                break
+            }
+        }
+    }
+}
+
+@Composable
+fun OtpView_(
+    isOtpValid : Boolean,
+    value: TextFieldValue,
+    onValueChange : (value : TextFieldValue) -> Unit,
+    focusRequester: FocusRequester
+) {
+    BasicTextField(
+        readOnly = false,
+        value = value,
+        onValueChange = onValueChange,
+        modifier = if (isOtpValid) {
+            Modifier
+                .padding(horizontal = 7.dp)
+                .border(BorderStroke(1.dp, Color(0xFF2B5EC0)), shape = RoundedCornerShape(5.dp))
+                .background(Color.Transparent)
+                .wrapContentSize()
+                .focusRequester(focusRequester)
+        } else {
+            Modifier
+                .padding(horizontal = 7.dp)
+                .border(
+                    BorderStroke(1.dp, MaterialTheme.colors.error),
+                    shape = RoundedCornerShape(5.dp)
+                )
+                .background(Color.Transparent)
+                .wrapContentSize()
+                .focusRequester(focusRequester)
+        },
+        maxLines = 1,
+        decorationBox = { innerTextField ->
+            Box(
+                modifier = Modifier
+                    .width(40.dp)
+                    .height(60.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                innerTextField()
+            }
+        },
+        cursorBrush = SolidColor(Color.Black),
+        textStyle = TextStyle(
+            color = Color.Black,
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily(Font(R.font.urbanist_regular))
+        ),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(onDone = null)
+    )}
+
+
+

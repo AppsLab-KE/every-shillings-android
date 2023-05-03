@@ -259,18 +259,7 @@ fun LoginOtp(
 
                 Button(
                     onClick = {
-
-//                    isOtpValid.value = validateCode(inputCode = otpCode.value)
-//
-//                    if (isOtpValid.value) {
-//                        // Verify Otp
-//                        Log.i("Code Valid", " - ${isOtpValid.value}")
-//                        Toast.makeText(
-//                            context,
-//                            "Valid - ${isOtpValid.value}", Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-
+                              navigatetoHome()
                     },
                     enabled = true,
                     modifier = Modifier
@@ -402,7 +391,10 @@ fun OtpView(
             imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(onDone = null)
-    )}
+    )
+
+}
+
 
 
 

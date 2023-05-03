@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
@@ -47,7 +48,7 @@ fun LoginOtp(
     navigatetoHome: () -> Unit,
 ) {
 
-    val otpCode = remember { 
+    val otpCode = remember {
         mutableStateOf("")
     }
 
@@ -162,7 +163,7 @@ fun LoginOtp(
                                 // Returning when old value is not empty
                                 if (textList[i].value.text != "") {
                                     isOtpValid.value = true
-                                    if(newValue.text == "") {
+                                    if (newValue.text == "") {
                                         // if new value is empty, set text field to empty
                                         textList[i].value = TextFieldValue(
                                             text = "",
@@ -181,8 +182,9 @@ fun LoginOtp(
                                     focusManager.clearFocus()
                                     keyboardController?.hide()
 
-                                    if(it) {
-                                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                                    if (it) {
+                                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT)
+                                            .show()
                                         isOtpValid.value = true
                                     } else {
                                         Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -192,13 +194,14 @@ fun LoginOtp(
                                                 text = "",
                                                 selection = TextRange(0)
                                             )
-                                        }                                        
+                                        }
                                     }
                                 }
 
                                 nextFocus(textList, requesterList)
                             },
-                            focusRequester = requesterList[i])
+                            focusRequester = requesterList[i]
+                        )
                     }
 
                     LaunchedEffect(key1 = null, block = {
@@ -208,9 +211,10 @@ fun LoginOtp(
                 }
 
                 if (!isOtpValid.value) {
-                    Box(modifier = Modifier.fillMaxWidth(),
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center
-                        ) {
+                    ) {
                         Text(
                             modifier = Modifier
                                 .padding(start = 22.dp, top = 2.dp)
@@ -218,42 +222,43 @@ fun LoginOtp(
                             text = "Kindly enter a valid Otp",
                             fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                             style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.error )
-                        }
+                            color = MaterialTheme.colors.error
+                        )
+                    }
 
                 }
 
-            Spacer(modifier = Modifier.height(45.dp))
+                Spacer(modifier = Modifier.height(45.dp))
 
-            Row {
-                Text(
-                    text = "Didn't receive a code?",
-                    style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                        color = Color.Black,
-                        fontSize = 15.sp
+                Row(modifier = Modifier.padding(horizontal = 20.dp)) {
+                    Text(
+                        text = "Didn't receive a code?",
+                        style = TextStyle(
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                            color = Color.Black,
+                            fontSize = 15.sp
+                        )
                     )
-                )
 
-                Spacer(modifier = Modifier.width(5.dp))
+                    Spacer(modifier = Modifier.width(5.dp))
 
-                Text(text = "Click here to resend",
-                    style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                        textDecoration = TextDecoration.Underline,
-                        fontSize = 15.sp,
-                        color = Color(0xFF2B5EC0)
-                    ),
-                    modifier = Modifier.clickable {
-                        // TODO
-                    }
-                )
-            }
+                    Text(text = "Click here to resend",
+                        style = TextStyle(
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                            textDecoration = TextDecoration.Underline,
+                            fontSize = 15.sp,
+                            color = Color(0xFF2B5EC0)
+                        ),
+                        modifier = Modifier.clickable {
+                            // TODO
+                        }
+                    )
+                }
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-            Button(
-                onClick = {
+                Button(
+                    onClick = {
 
 //                    isOtpValid.value = validateCode(inputCode = otpCode.value)
 //
@@ -266,29 +271,30 @@ fun LoginOtp(
 //                        ).show()
 //                    }
 
-                },
-                enabled = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .height(45.dp),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFF2B5EC0),
-                    contentColor = Color.White
-                ),
-                elevation = ButtonDefaults.elevation(
-                    defaultElevation = 3.dp,
-                    pressedElevation = 0.dp,
-                )
-            ) {
-                Text(
-                    text = "Continue",
-                    style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.urbanist_bold)),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 15.sp
+                    },
+                    enabled = true,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .height(45.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(0xFF2B5EC0),
+                        contentColor = Color.White
+                    ),
+                    elevation = ButtonDefaults.elevation(
+                        defaultElevation = 3.dp,
+                        pressedElevation = 0.dp,
                     )
-                )
+                ) {
+                    Text(
+                        text = "Continue",
+                        style = TextStyle(
+                            fontFamily = FontFamily(Font(R.font.urbanist_bold)),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp
+                        )
+                    )
+                }
             }
         }
     }
@@ -344,7 +350,7 @@ private fun nextFocus(textList: List<MutableState<TextFieldValue>>, requesterLis
 }
 
 @Composable
-private fun OtpView(
+fun OtpView(
     isOtpValid : Boolean,
     value: TextFieldValue,
     onValueChange : (value : TextFieldValue) -> Unit,
@@ -364,14 +370,14 @@ private fun OtpView(
         } else {
             Modifier
                 .padding(horizontal = 7.dp)
-                .border(BorderStroke(1.dp, MaterialTheme.colors.error), shape = RoundedCornerShape(5.dp))
+                .border(
+                    BorderStroke(1.dp, MaterialTheme.colors.error),
+                    shape = RoundedCornerShape(5.dp)
+                )
                 .background(Color.Transparent)
                 .wrapContentSize()
                 .focusRequester(focusRequester)
-        }
-
-
-        ,
+        },
         maxLines = 1,
         decorationBox = { innerTextField ->
             Box(
@@ -396,7 +402,7 @@ private fun OtpView(
             imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(onDone = null)
-    )
-}
+    )}
+
 
 

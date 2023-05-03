@@ -35,16 +35,19 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+
 import kotlinx.coroutines.delay
 
 // Login Otp Verification
 @OptIn(ExperimentalComposeUiApi::class)
+
+
 @Composable
 fun LoginOtp(
     navigatetoHome: () -> Unit,
 ) {
 
-    val otpCode = remember {
+    val otpCode = remember { 
         mutableStateOf("")
     }
 
@@ -96,6 +99,7 @@ fun LoginOtp(
     Surface(
         modifier = Modifier
             .fillMaxSize()
+            .padding(horizontal = 10.dp)
     ) {
 
         Column(
@@ -140,6 +144,7 @@ fun LoginOtp(
             )
 
             Spacer(modifier = Modifier.height(45.dp))
+
 
             Column {
                 Row(
@@ -215,8 +220,8 @@ fun LoginOtp(
                             style = MaterialTheme.typography.caption,
                             color = MaterialTheme.colors.error )
                         }
+
                 }
-            }
 
             Spacer(modifier = Modifier.height(45.dp))
 
@@ -249,6 +254,7 @@ fun LoginOtp(
 
             Button(
                 onClick = {
+
 //                    isOtpValid.value = validateCode(inputCode = otpCode.value)
 //
 //                    if (isOtpValid.value) {
@@ -259,6 +265,7 @@ fun LoginOtp(
 //                            "Valid - ${isOtpValid.value}", Toast.LENGTH_SHORT
 //                        ).show()
 //                    }
+
                 },
                 enabled = true,
                 modifier = Modifier
@@ -286,6 +293,7 @@ fun LoginOtp(
         }
     }
 }
+
 
 private fun mergeOtp(
     textList: List<MutableState<TextFieldValue>>,
@@ -390,4 +398,5 @@ private fun OtpView(
         keyboardActions = KeyboardActions(onDone = null)
     )
 }
+
 

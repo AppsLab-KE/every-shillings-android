@@ -2,11 +2,9 @@ package com.appslabke.every_shillings_android.ui
 
 import android.util.Patterns
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -45,11 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 import com.togitech.ccp.component.TogiCodeDialog
-import com.togitech.ccp.component.TogiCountryCodePicker
-import com.togitech.ccp.component.getErrorStatus
-import com.togitech.ccp.data.utils.getDefaultLangCode
 import com.togitech.ccp.data.utils.getLibCountries
-import java.util.regex.Pattern
 
 @Composable
 fun Signup(
@@ -433,7 +427,6 @@ fun AnnotatedLoginText(navigateToLoginScreen: () -> Unit) {
                 navigateToLoginScreen()
                 /*TODO()*/
             }
-
         })
 }
 

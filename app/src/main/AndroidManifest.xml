@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,25 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Everyshillingsandroid"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.screens.MarketPlaceScreen"
-            android:exported="false"
-            android:label="@string/title_activity_market_place_screen"
-            android:theme="@style/Theme.Everyshillingsandroid" />
-        <activity
-            android:name=".ResetPasswordScreen"
-            android:exported="false"
-            android:label="@string/title_activity_reset_password_ui"
-            android:theme="@style/Theme.Everyshillingsandroid">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ForgetPassword"
-            android:exported="false"
-            android:label="@string/title_activity_forget_password"
-            android:theme="@style/Theme.Everyshillingsandroid" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -46,6 +28,14 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+<!--        <receiver-->
+<!--            android:name=".SmsBroadcastReceiver"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
     </application>
 
 </manifest>

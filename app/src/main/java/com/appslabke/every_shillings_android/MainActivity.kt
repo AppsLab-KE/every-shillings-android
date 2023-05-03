@@ -14,8 +14,12 @@ import androidx.navigation.compose.rememberNavController
 import com.appslabke.every_shillings_android.navigation.Screens
 import com.appslabke.every_shillings_android.navigation.SetNavGraph
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
+import com.datadog.android.compose.ExperimentalTrackingApi
+import com.datadog.android.compose.NavigationViewTrackingEffect
+import com.datadog.android.rum.tracking.AcceptAllNavDestinations
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalTrackingApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,9 +30,17 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    val navController = rememberNavController()
-                    SetNavGraph(startDestination = Screens.OnboardingScreen.route,
-                        navController = navController)
+                    val navController = rememberNavController().apply {
+                        NavigationViewTrackingEffect(
+                            navController = this,
+                            trackArguments = true,
+                            destinationPredicate = AcceptAllNavDestinations()
+                        )
+                    }
+                    SetNavGraph(
+                        startDestination = Screens.OnboardingScreen.route,
+                        navController = navController
+                    )
                 }
             }
         }

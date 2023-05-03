@@ -26,7 +26,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+
 //import com.appslabke.every_shillings_android.ui.screens.validateCode
+
 import com.togitech.ccp.component.*
 import com.togitech.ccp.data.utils.getLibCountries
 
@@ -65,7 +67,7 @@ fun Login(
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "We will send you the four digit verification code",
+            text = "We will send you the six digit verification code",
             fontWeight = FontWeight.Normal,
             fontFamily = FontFamily(Font(R.font.urbanist_regular)),
             fontSize = 16.sp

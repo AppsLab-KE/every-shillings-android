@@ -27,6 +27,12 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <meta-data
+                android:name="CLIENT_TOKEN"
+                android:value="${CLIENT_TOKEN}"/>
+            <meta-data
+                android:name="APP_ID"
+                android:value="${APP_ID}"/>
         </activity>
 
 <!--        <receiver-->

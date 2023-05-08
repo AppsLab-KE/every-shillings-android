@@ -17,7 +17,9 @@ import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 import com.datadog.android.compose.ExperimentalTrackingApi
 import com.datadog.android.compose.NavigationViewTrackingEffect
 import com.datadog.android.rum.tracking.AcceptAllNavDestinations
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalTrackingApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {

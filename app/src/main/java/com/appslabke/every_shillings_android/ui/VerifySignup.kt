@@ -1,4 +1,4 @@
-package com.appslabke.every_shillings_android.ui.screens
+package com.appslabke.every_shillings_android.ui
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -32,11 +32,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.appslabke.every_shillings_android.R
-
+import com.appslabke.every_shillings_android.viewmodel.MainViewModel
 import kotlinx.coroutines.delay
 
 // Sign up Otp Verification
@@ -96,8 +96,26 @@ fun VerifySignUp(
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    val viewModel: MainViewModel = hiltViewModel()
 
+    /*   LaunchedEffect(1){
+           val smsBroadcastReceiver = SmsBroadcastReceiver()
+           val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+           context.registerReceiver(smsBroadcastReceiver, intentFilter)
+           smsBroadcastReceiver.initListener(object :SmsBroadcastReceiver.SmsListener{
+               override fun onSmsReceived(otp: String?) {
+                   Log.d("VerifySignUp", "onSmsReceived code:$otp ")
+                   otp?.let { otpCode.value = it }
+                   context.unregisterReceiver(smsBroadcastReceiver)
+                   viewModel.shouldRetrieveSms.value = false
+               }
 
+               override fun onSmsTimeOut() {
+                   Log.d("VerifySignUp", "SMS timeout! ")
+               }
+
+           })
+       }*/
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -393,6 +411,5 @@ fun OtpView_(
         ),
         keyboardActions = KeyboardActions(onDone = null)
     )}
-
 
 

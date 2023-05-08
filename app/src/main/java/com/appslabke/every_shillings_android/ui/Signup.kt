@@ -40,8 +40,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
+import com.appslabke.every_shillings_android.viewmodel.MainViewModel
 import com.togitech.ccp.component.TogiCodeDialog
 import com.togitech.ccp.data.utils.getLibCountries
 
@@ -64,7 +66,16 @@ fun Signup(
     val checkState = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val viewModel: MainViewModel = hiltViewModel()
 
+    // start auto-read otp from the message
+    /*LaunchedEffect(key1 = viewModel.shouldRetrieveSms.value ){
+        launch {
+            if (viewModel.shouldRetrieveSms.value){
+                startSmsRetrieverClient(context)
+            }
+        }
+    }*/
 
     Box(
         modifier = modifier
@@ -284,6 +295,7 @@ fun Signup(
                             phoneNumberInvalid.value = false
                             // will take user to VerifySignUp screen
                             /*TODO()*/
+                            viewModel.shouldRetrieveSms.value = true
                             navigateToVerifySignUpOtpScreen()
                         }
                     }

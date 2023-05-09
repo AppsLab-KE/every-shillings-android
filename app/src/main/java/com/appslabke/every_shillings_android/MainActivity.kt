@@ -49,15 +49,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Home() {
-    Text(text = "Hello Screen")
-}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     EveryshillingsandroidTheme {
-        Home()
+
     }
 }

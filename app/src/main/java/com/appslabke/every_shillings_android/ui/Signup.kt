@@ -189,7 +189,11 @@ fun Signup(
                 onValueChange = {
                     phoneNumber.value = it
                     fullPhoneNumber.value = phoneCode.value + phoneNumber.value
-                    if (phoneNumber.value.length == 9) phoneNumberInvalid.value = false
+                    if (phoneNumber.value.length == 9
+
+
+
+                    ) phoneNumberInvalid.value = false
                 },
                 leadingIcon = {
                     TogiCodeDialog(
@@ -279,7 +283,10 @@ fun Signup(
                         email.value.trim().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email.value).matches()-> {
                             emailInvalid.value = true
                         }
-                        phoneNumber.value.length != 9 -> {
+                        phoneNumber.value.length != 9 ||
+                        !phoneNumber.value.contains("^7".toRegex()) &&
+                        !phoneNumber.value.contains("^1".toRegex())
+                        -> {
                             phoneNumberInvalid.value = true
                         }
                         !checkState.value -> {

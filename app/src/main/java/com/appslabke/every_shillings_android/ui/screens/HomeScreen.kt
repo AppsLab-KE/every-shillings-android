@@ -62,9 +62,9 @@ fun HomeContent(
                 Text(
                     text = "Welcome John Doe",
                     style = TextStyle(
-                        fontSize = 25.sp,
+                        fontSize = 20.sp,
                         fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                        color = Color.Black
+                        //color = Color.Black
                     )
                 )
                 Image(
@@ -332,6 +332,31 @@ fun HomeContent(
                         fontFamily = FontFamily(Font(R.font.urbanist_regular))
                     )
                 )
+            }
+            Spacer(modifier = Modifier.height(5.dp))
+            // History
+
+            Column(modifier = Modifier.padding(horizontal = 20.dp)){
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopStart){
+                    Text(
+                        text = "Transactions",
+                        style = TextStyle(
+                            fontSize = 20.sp,
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                        ),
+                        modifier = Modifier.align(Alignment.TopStart)
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(
+                        text = "No history",
+                        style = TextStyle(
+                            fontSize = 17.sp,
+                            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                        ),
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
             }
         }
     }

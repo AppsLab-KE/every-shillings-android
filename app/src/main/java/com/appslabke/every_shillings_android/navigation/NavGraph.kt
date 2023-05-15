@@ -30,7 +30,7 @@ fun SetNavGraph(
         // call Extension functions of NavGraphBuilder
 
         home(
-            toexchangeCurr = {
+            exchangeCurr = {
                 navController.navigate(Screens.ExchangeScreen.route)
             }
         )
@@ -69,20 +69,19 @@ fun SetNavGraph(
                 navController.navigate(Screens.Home.route)
             }
         )
+        ExchangeScreen()
     }
 
 }
 
 //Home
 fun NavGraphBuilder.home(
-    toexchangeCurr: () -> Unit
+    exchangeCurr: () -> Unit
 ){
     composable(route = Screens.Home.route){
         // call home composable here
         HomeScreen(
-            toexchangeCurr = {
-                toexchangeCurr()
-            }
+            toexchangeCurr = exchangeCurr
         )
     }
 }
@@ -164,7 +163,7 @@ fun NavGraphBuilder.topUpAccount(){
 // ExchangeScreen
 
 fun NavGraphBuilder.ExchangeScreen(){
-    composable(route = Screens.TopUpScreen.route){
+    composable(route = Screens.ExchangeScreen.route){
         // call ExchangeScreen composable here
         ExchangeCurrency()
     }

@@ -214,9 +214,6 @@ fun Login(
 }
 
 fun validatePhoneNumber(inputNumber: String): Boolean {
-     if (inputNumber.length == 9){
-         return true
-     }
-    return false
+     return inputNumber.length == 9
 }
 

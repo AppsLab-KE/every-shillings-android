@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.appslabke.every_shillings_android.ui.Login
 import com.appslabke.every_shillings_android.ui.Signup
 import com.appslabke.every_shillings_android.ui.VerifySignUp
+import com.appslabke.every_shillings_android.ui.screens.ExchangeCurrency
 import com.appslabke.every_shillings_android.ui.screens.HomeScreen
 import com.appslabke.every_shillings_android.ui.screens.LoginOtp
 import com.appslabke.every_shillings_android.ui.screens.OnboadingScreen
@@ -28,7 +29,11 @@ fun SetNavGraph(
     ){
         // call Extension functions of NavGraphBuilder
 
-        home()
+        home(
+            exchangeCurr = {
+                navController.navigate(Screens.ExchangeScreen.route)
+            }
+        )
         onboardingScreen(
             navigateToLogin = {
                 navController.navigate(Screens.Login.route)
@@ -64,15 +69,20 @@ fun SetNavGraph(
                 navController.navigate(Screens.Home.route)
             }
         )
+        ExchangeScreen()
     }
 
 }
 
 //Home
-fun NavGraphBuilder.home(){
+fun NavGraphBuilder.home(
+    exchangeCurr: () -> Unit
+){
     composable(route = Screens.Home.route){
         // call home composable here
-        HomeScreen()
+        HomeScreen(
+            toexchangeCurr = exchangeCurr
+        )
     }
 }
 
@@ -149,3 +159,13 @@ fun NavGraphBuilder.topUpAccount(){
 
     }
 }
+
+// ExchangeScreen
+
+fun NavGraphBuilder.ExchangeScreen(){
+    composable(route = Screens.ExchangeScreen.route){
+        // call ExchangeScreen composable here
+        ExchangeCurrency()
+    }
+}
+

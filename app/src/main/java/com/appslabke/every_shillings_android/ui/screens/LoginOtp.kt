@@ -127,7 +127,6 @@ fun LoginOtp(
                 text = "Verify Your Phone Number",
                 style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.urbanist_medium)),
-                    color = Color.Black,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -139,7 +138,6 @@ fun LoginOtp(
                 text = "Enter the 4 digit code sent to your number",
                 style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    color = Color.Black,
                     fontSize = 16.sp
                 )
             )
@@ -235,7 +233,6 @@ fun LoginOtp(
                         text = "Didn't receive a code?",
                         style = TextStyle(
                             fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                            color = Color.Black,
                             fontSize = 15.sp
                         )
                     )
@@ -259,7 +256,10 @@ fun LoginOtp(
 
                 Button(
                     onClick = {
-                              navigatetoHome()
+
+                            navigatetoHome()
+
+
                     },
                     enabled = true,
                     modifier = Modifier
@@ -378,9 +378,9 @@ fun OtpView(
                 innerTextField()
             }
         },
-        cursorBrush = SolidColor(Color.Black),
+
         textStyle = TextStyle(
-            color = Color.Black,
+
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,

@@ -32,13 +32,21 @@ import com.github.tehras.charts.piechart.animation.simpleChartAnimation
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomeScreen() {
-    HomeContent()
+fun HomeScreen(
+    toexchangeCurr: () -> Unit
+) {
+    HomeContent(
+        toexchangeCurr = {
+            toexchangeCurr()
+        }
+    )
 }
 
-@Preview
+
 @Composable
-fun HomeContent() {
+fun HomeContent(
+    toexchangeCurr: () -> Unit
+) {
 
     Surface(modifier = Modifier.fillMaxSize()) {
         // Header
@@ -169,7 +177,7 @@ fun HomeContent() {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { toexchangeCurr()},
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(Color(0xFF2B5EC0)),
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 15.dp)

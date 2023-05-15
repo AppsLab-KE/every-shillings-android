@@ -2,6 +2,7 @@ package com.appslabke.every_shillings_android.ui
 
 import android.util.Patterns
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -93,7 +94,7 @@ fun Signup(
                 },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = modifier.height(56.dp))
+            Spacer(modifier = modifier.height(6.dp))
             Text(
                 text = "Sign up",
                 color = Color(0xFF2B5EC0),
@@ -245,8 +246,38 @@ fun Signup(
                  showCountryFlag = true,
                  unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.42f),
              )*/
+            Spacer(modifier = modifier.height(20.dp))
+            TextInputField(
+                modifier = modifier,
+                focusRequester = focusRequester,
+                fieldTextState = email,
+                fieldLabel = "Password",
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next
+                ),
+                focusManager = focusManager,
+                isError = emailInvalid,
+                onValueChange = {
+                    email.value = it
+                    if (email.value.trim().isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+                        emailInvalid.value = false
+                    }
+                }
+            )
+            if (emailInvalid.value) {
+                Text(
+                    text = "Enter a password",
+                    color = MaterialTheme.colors.error,
+                    fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                )
+            }
 
-            Spacer(modifier = modifier.height(30.dp))
+
+            Spacer(modifier = modifier.height(10.dp))
             Text(
                 text = "You will receive an OTP",
                 fontWeight = FontWeight.Normal,
@@ -313,7 +344,7 @@ fun Signup(
             }
             Spacer(modifier = modifier.height(10.dp))
             AnnotatedLoginText(navigateToLoginScreen)
-            Spacer(modifier = modifier.height(50.dp))
+
 
         }
 
@@ -446,6 +477,6 @@ fun AnnotatedLoginText(navigateToLoginScreen: () -> Unit) {
 @Composable
 fun SignupPreview() {
     EveryshillingsandroidTheme {
-        //Signup()
+        Signup(navigateToLoginScreen = {}, navigateToVerifySignUpOtpScreen = {})
     }
 }

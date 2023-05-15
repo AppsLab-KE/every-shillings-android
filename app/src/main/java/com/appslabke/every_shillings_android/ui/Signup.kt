@@ -259,10 +259,10 @@ fun Signup(
                 focusManager = focusManager,
                 isError = emailInvalid,
                 onValueChange = {
-                    email.value = it
-                    if (email.value.trim().isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
-                        emailInvalid.value = false
-                    }
+//                    email.value = it
+//                    if (email.value.trim().isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+//                        emailInvalid.value = false
+//                    }
                 }
             )
             if (emailInvalid.value) {
@@ -282,7 +282,7 @@ fun Signup(
                 text = "You will receive an OTP",
                 fontWeight = FontWeight.Normal,
                 fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                fontSize = 20.sp,
+                fontSize = 17.sp,
             )
             Spacer(modifier = modifier.height(30.dp))
             Row(
@@ -418,7 +418,7 @@ fun AnnotatedTermsAndPolicies() {
     }
     ClickableText(
         text = annotatedText,
-        style = TextStyle.Default.copy(fontSize = 18.sp),
+        style = TextStyle.Default.copy(fontSize = 17.sp),
         onClick = { offset ->
             annotatedText.getStringAnnotations(
                 tag = "terms_conditions",
@@ -460,7 +460,7 @@ fun AnnotatedLoginText(navigateToLoginScreen: () -> Unit) {
     }
     ClickableText(
         text = annotatedText,
-        style = TextStyle.Default.copy(fontSize = 18.sp),
+        style = TextStyle.Default.copy(fontSize = 17.sp),
         onClick = { offset ->
             annotatedText.getStringAnnotations(
                 tag = "navigate_login",

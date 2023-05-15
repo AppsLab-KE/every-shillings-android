@@ -67,7 +67,7 @@ fun Login(
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "We will send you the six digit verification code",
+            text = "We will send you the four digit verification code",
             fontWeight = FontWeight.Normal,
             fontFamily = FontFamily(Font(R.font.urbanist_regular)),
             fontSize = 16.sp
@@ -155,10 +155,15 @@ fun Login(
                     fullPhoneNumber.value = getFullPhoneNumber()
                     onlyPhoneNumber.value = getOnlyPhoneNumber()
 
-                    navigateToLoginOtpScreen.invoke()
+                    navigateToLoginOtpScreen()
 
 
                 } else if (!phoneNumberValid.value) {
+                    Log.i("Valid Number", "Phone number not valid")
+                    fullPhoneNumber.value = "Error"
+                    onlyPhoneNumber.value = "Error"
+                }
+                else if (fullPhoneNumber.value == "") {
                     Log.i("Valid Number", "Phone number not valid")
                     fullPhoneNumber.value = "Error"
                     onlyPhoneNumber.value = "Error"
@@ -177,8 +182,9 @@ fun Login(
             Text(text = "Generate OTP",
                 fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                 fontSize = 16.sp,
-                modifier = Modifier.clickable { navigateToLoginOtpScreen() })
+            )
         }
+
         Spacer(modifier = Modifier.height(20.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -208,6 +214,9 @@ fun Login(
 }
 
 fun validatePhoneNumber(inputNumber: String): Boolean {
-    return inputNumber.length == 9
+     if (inputNumber.length == 9){
+         return true
+     }
+    return false
 }
 

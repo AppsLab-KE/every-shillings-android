@@ -40,7 +40,7 @@ references:
     run:
       name: Download Android Dependencies
       command:         
-          sudo chmod +x ./gradlew
+          sudo chmod +x ./gradlew androidDependencies
           ./gradlew androidDependencies
 
   # Keys
@@ -69,6 +69,8 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
       - *decode_gservices_key
+      - *restore_gradle_cache
+      - *save_gradle_cache
       - run:
           name: Run unit tests
           command: |

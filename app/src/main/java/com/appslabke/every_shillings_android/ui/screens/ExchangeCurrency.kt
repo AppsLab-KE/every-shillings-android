@@ -87,11 +87,11 @@ fun ExchangeCurrency(){
                         Modifier.clickable { expandedBuy = !expandedBuy })
                 },
 
-                colors = TextFieldDefaults
-                    .textFieldColors(
-                        unfocusedIndicatorColor = Color(0xFFFFFFFF),
-                        disabledTextColor = Color(0xFF000000)
-                    )
+//                colors = TextFieldDefaults
+//                    .textFieldColors(
+//                        unfocusedIndicatorColor = Color(0xFFFFFFFF),
+//                        disabledTextColor = Color(0xFF000000)
+//                    )
 
             )
 
@@ -217,11 +217,6 @@ fun ExchangeCurrency(){
                     Icon(payInIcon,"contentDescription",
                         Modifier.clickable { expandedPayIn = !expandedPayIn })
                 },
-                colors = TextFieldDefaults
-                    .textFieldColors(
-                        unfocusedIndicatorColor = Color(0xFFFFFFFF),
-                        disabledTextColor = Color(0xFF000000)
-                    )
             )
 
 
@@ -283,11 +278,7 @@ fun ExchangeCurrency(){
                         Modifier.clickable { expandedDelivery = !expandedDelivery })
                 },
 
-                colors = TextFieldDefaults
-                    .textFieldColors(
-                        unfocusedIndicatorColor = Color(0xFFFFFFFF),
-                        disabledTextColor = Color(0xFF000000)
-                    )
+
             )
 
 

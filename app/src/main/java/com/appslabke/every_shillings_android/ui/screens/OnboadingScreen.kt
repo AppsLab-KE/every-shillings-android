@@ -16,14 +16,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+import com.appslabke.every_shillings_android.destinations.LoginDestination
+import com.appslabke.every_shillings_android.destinations.LoginOtpDestination
+import com.appslabke.every_shillings_android.destinations.SignupDestination
 import com.datadog.android.compose.ExperimentalTrackingApi
 import com.datadog.android.compose.trackClick
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+
+@RootNavGraph(start = true)
+@Destination
 
 @OptIn(ExperimentalTrackingApi::class)
 @Composable
 fun OnboadingScreen(
-    navigateToLoginScreen: () -> Unit,
-    navigateToSigUpScreen: () -> Unit
+   navigator: DestinationsNavigator
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -64,7 +72,7 @@ fun OnboadingScreen(
 
                 // Sign up
                 Button(
-                    onClick = trackClick(targetName = "Signup") { navigateToSigUpScreen() },
+                    onClick = trackClick(targetName = "Signup") { navigator.navigate(SignupDestination) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -80,7 +88,7 @@ fun OnboadingScreen(
 
                 // Sign in
                 OutlinedButton(
-                    onClick = trackClick(targetName = "Login") { navigateToLoginScreen() },
+                    onClick = trackClick(targetName = "Login") { navigator.navigate(LoginDestination)},
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),

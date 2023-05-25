@@ -36,16 +36,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+import com.appslabke.every_shillings_android.destinations.HomeScreenDestination
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 import kotlinx.coroutines.delay
 
 // Login Otp Verification
 @OptIn(ExperimentalComposeUiApi::class)
 
-
+@Destination
 @Composable
 fun LoginOtp(
-    navigatetoHome: () -> Unit,
+    navigator: DestinationsNavigator
 ) {
 
     val otpCode = remember {
@@ -257,8 +260,7 @@ fun LoginOtp(
                 Button(
                     onClick = {
 
-                            navigatetoHome()
-
+                        navigator.navigate(HomeScreenDestination)
 
                     },
                     enabled = true,

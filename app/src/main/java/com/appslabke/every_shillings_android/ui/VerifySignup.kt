@@ -36,17 +36,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.appslabke.every_shillings_android.R
+import com.appslabke.every_shillings_android.destinations.HomeScreenDestination
 import com.appslabke.every_shillings_android.viewmodel.MainViewModel
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 
 // Sign up Otp Verification
 @OptIn(ExperimentalComposeUiApi::class)
 
-
+@Destination
 @Composable
 fun VerifySignUp(
-    toHomeScreen: () -> Unit,
-    navigateBack: () -> Unit
+    navigator:DestinationsNavigator
 ) {
 
     val otpCode = remember {
@@ -278,7 +280,7 @@ fun VerifySignUp(
 
                 Button(
                     onClick = {
-                              toHomeScreen()
+                              navigator.navigate(HomeScreenDestination)
                     },
                     enabled = true,
                     modifier = Modifier

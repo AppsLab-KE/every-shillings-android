@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import com.appslabke.every_shillings_android.destinations.TopupScreenDestination
 import com.appslabke.every_shillings_android.navigation.BottomNavigationBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -94,13 +95,6 @@ fun ExchangeCurrency(
                         Icon(buyIcon, "contentDescription",
                             Modifier.clickable { expandedBuy = !expandedBuy })
                     },
-
-//                colors = TextFieldDefaults
-//                    .textFieldColors(
-//                        unfocusedIndicatorColor = Color(0xFFFFFFFF),
-//                        disabledTextColor = Color(0xFF000000)
-//                    )
-
                 )
 
 
@@ -320,7 +314,7 @@ fun ExchangeCurrency(
 
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {  navigator.navigate(TopupScreenDestination()) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
@@ -332,7 +326,7 @@ fun ExchangeCurrency(
                 )
             )
             {
-                Text(text = "Book order", modifier = Modifier.clickable { })
+                Text(text = "Book order", modifier = Modifier)
             }
 
         }

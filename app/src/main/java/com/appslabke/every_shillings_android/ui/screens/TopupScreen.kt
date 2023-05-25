@@ -1,6 +1,7 @@
 package com.appslabke.every_shillings_android.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,12 +19,17 @@ import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.composables.PaymentMethodDropDown
 import com.appslabke.every_shillings_android.ui.validatePhoneNumber
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.togitech.ccp.component.getFullPhoneNumber
 import com.togitech.ccp.component.getOnlyPhoneNumber
 
 @Preview(showSystemUi = true, showBackground = true)
+@Destination
 @Composable
-fun TopupScreen() {
+fun TopupScreen(
+    navigator: DestinationsNavigator
+) {
     val topUpAmount = "$123,000"
 
     Surface(modifier = Modifier
@@ -67,9 +73,12 @@ fun TopupScreen() {
 
             }
             Spacer(modifier = Modifier.height(50.dp))
+
             //top account button
             Button(
-                onClick = { /*Top up user transaction*/ },
+                onClick = {
+
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 50.dp)

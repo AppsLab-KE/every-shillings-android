@@ -43,24 +43,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.appslabke.every_shillings_android.R
+import com.appslabke.every_shillings_android.destinations.LoginDestination
+import com.appslabke.every_shillings_android.destinations.SignupDestination
+import com.appslabke.every_shillings_android.destinations.VerifySignUpDestination
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 import com.appslabke.every_shillings_android.viewmodel.MainViewModel
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.togitech.ccp.component.TogiCodeDialog
 import com.togitech.ccp.data.utils.getLibCountries
 
+@Destination
 @Composable
 fun Signup(
-    modifier: Modifier = Modifier,
-    navigateToVerifySignUpOtpScreen: () -> Unit,
-    navigateToLoginScreen: () -> Unit
+    navigator: DestinationsNavigator,
+    modifier: Modifier = Modifier
+
 ) {
     val fullName = rememberSaveable { mutableStateOf("") }
     val email = rememberSaveable { mutableStateOf("") }
+    val password = rememberSaveable { mutableStateOf("") }
     val phoneNumber = rememberSaveable { mutableStateOf("") }
     val phoneCode = rememberSaveable { mutableStateOf("+254") }
     val fullPhoneNumber = rememberSaveable { mutableStateOf("") }
     val phoneNumberInvalid = rememberSaveable { mutableStateOf(false) }
     val emailInvalid = rememberSaveable { mutableStateOf(false) }
+    val passwordInvalid = rememberSaveable { mutableStateOf(false) }
     val fullNameInvalid = rememberSaveable { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
@@ -69,14 +77,6 @@ fun Signup(
     val context = LocalContext.current
     val viewModel: MainViewModel = hiltViewModel()
 
-    // start auto-read otp from the message
-    /*LaunchedEffect(key1 = viewModel.shouldRetrieveSms.value ){
-        launch {
-            if (viewModel.shouldRetrieveSms.value){
-                startSmsRetrieverClient(context)
-            }
-        }
-    }*/
 
     Box(
         modifier = modifier
@@ -231,26 +231,11 @@ fun Signup(
                         .padding(top = 10.dp)
                 )
             }
-
-            /* TogiCountryCodePicker( modifier = modifier
-                 .background(Color.Transparent)
-                 .fillMaxWidth()
-                 .padding(horizontal = 4.dp)
-                 .offset(y = (-16).dp),
-
-                 text = phoneNumber.value,
-                 color = Color.Transparent,
-                 onValueChange = {phoneNumber.value = it },
-                 shape = RoundedCornerShape(4.dp),
-                 bottomStyle = false,
-                 showCountryFlag = true,
-                 unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.42f),
-             )*/
             Spacer(modifier = modifier.height(20.dp))
             TextInputField(
                 modifier = modifier,
                 focusRequester = focusRequester,
-                fieldTextState = email,
+                fieldTextState = password,
                 fieldLabel = "Password",
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email,
@@ -259,13 +244,10 @@ fun Signup(
                 focusManager = focusManager,
                 isError = emailInvalid,
                 onValueChange = {
-//                    email.value = it
-//                    if (email.value.trim().isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
-//                        emailInvalid.value = false
-//                    }
+
                 }
             )
-            if (emailInvalid.value) {
+            if (passwordInvalid.value) {
                 Text(
                     text = "Enter a password",
                     color = MaterialTheme.colors.error,
@@ -325,9 +307,9 @@ fun Signup(
                             emailInvalid.value = false
                             phoneNumberInvalid.value = false
                             // will take user to VerifySignUp screen
-                            /*TODO()*/
+                            navigator.navigate(VerifySignUpDestination)
                             viewModel.shouldRetrieveSms.value = true
-                            navigateToVerifySignUpOtpScreen()
+                            //verify signup
                         }
                     }
 
@@ -343,7 +325,7 @@ fun Signup(
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)))
             }
             Spacer(modifier = modifier.height(10.dp))
-            AnnotatedLoginText(navigateToLoginScreen)
+            AnnotatedLoginText { navigator.navigate(LoginDestination) }
 
 
         }
@@ -473,10 +455,4 @@ fun AnnotatedLoginText(navigateToLoginScreen: () -> Unit) {
         })
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun SignupPreview() {
-    EveryshillingsandroidTheme {
-        Signup(navigateToLoginScreen = {}, navigateToVerifySignUpOtpScreen = {})
-    }
-}
+

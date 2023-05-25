@@ -41,7 +41,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@RootNavGraph(start = true)
+
 @Destination
 @Composable
 fun HomeScreen(
@@ -84,7 +84,8 @@ fun HomeContent(
                         )
                         Image(
                             painterResource(R.drawable.account_icon),
-                            contentDescription = "person profile"
+                            contentDescription = "person profile",
+                            modifier = Modifier.size(26.dp)
                         )
                     }
 
@@ -107,7 +108,7 @@ fun HomeContent(
                                     Text(
                                         text = "KES Account",
                                         style = TextStyle(
-                                            fontSize = 25.sp,
+                                            fontSize = 21.sp,
                                             fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                             color = Color.Black
                                         )
@@ -131,7 +132,7 @@ fun HomeContent(
                                         Text(
                                             text = "Your Balance",
                                             style = TextStyle(
-                                                fontSize = 22.sp,
+                                                fontSize = 20.sp,
                                                 fontFamily = FontFamily(Font(R.font.urbanist_regular)),
                                                 color = Color.Black
                                             )
@@ -142,7 +143,7 @@ fun HomeContent(
                                         Text(
                                             text = "Ksh 300,400",
                                             style = TextStyle(
-                                                fontSize = 25.sp,
+                                                fontSize = 20.sp,
                                                 fontWeight = FontWeight.W900,
                                                 fontFamily = FontFamily(Font(R.font.urbanist_bold)),
                                                 color = Color.Black
@@ -278,7 +279,7 @@ fun HomeContent(
                         LineChart(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(150.dp)
+                                .height(110.dp)
                                 .padding(end = 25.dp),
                             linesChartData = listOf(
                                 LineChartData(

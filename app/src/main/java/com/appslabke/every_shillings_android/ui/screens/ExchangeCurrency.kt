@@ -30,7 +30,9 @@ import androidx.compose.ui.unit.toSize
 
 @Preview(showBackground = true)
 @Composable
-fun ExchangeCurrency(){
+fun ExchangeCurrency(
+    toTopupScreen: () -> Unit
+){
 
     Column(
         modifier = Modifier
@@ -321,7 +323,7 @@ fun ExchangeCurrency(){
                 contentColor = Color.White
             ))
         {
-            Text(text = "Book order", modifier = Modifier.clickable {  })
+            Text(text = "Book order", modifier = Modifier.clickable { toTopupScreen() })
         }
 
     }

@@ -8,8 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
     //custom colors
     <color name="btn_background_color">#2B5EC0</color>
     <color name="btn_text_color">#FFFFFF</color>
     <color name="primary">#FF2B5EC0</color>
+    <color name="colorPrimaryDark">#25488C</color>
 </resources>

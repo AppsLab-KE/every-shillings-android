@@ -1,5 +1,7 @@
 package com.appslabke.every_shillings_android.navigation
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -9,7 +11,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.appslabke.every_shillings_android.MainActivity
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -28,24 +34,17 @@ fun BottomNavigationBar(navController: NavController) {
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach {item ->
             BottomNavigationItem(
-               icon = { Icon(painter = painterResource(id = ), contentDescription = "icons")},
-                label = { Text (text = "")},
+                icon = { Icon(painterResource(id = item.icon!!), contentDescription = item.title) },
+                label = { Text(text = item.title!!) },
                 selectedContentColor = Color.White,
                 unselectedContentColor = Color.White.copy(0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route,
-                onClick = {
-                    navController.navigate(item.route){
-                        navController.graph.startDestinationRoute?.let {
-                            popUpTo(route){
+                onClick = {}
+            )
 
-                            }
-                        }
 
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                }
         }
+
     }
 }

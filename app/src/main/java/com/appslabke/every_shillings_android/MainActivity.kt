@@ -12,14 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.appslabke.every_shillings_android.navigation.Screens
-import com.appslabke.every_shillings_android.navigation.SetNavGraph
 import com.appslabke.every_shillings_android.ui.theme.EveryshillingsandroidTheme
 import com.datadog.android.compose.ExperimentalTrackingApi
 import com.datadog.android.compose.NavigationViewTrackingEffect
 import com.datadog.android.rum.tracking.AcceptAllNavDestinations
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.NavGraph
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalTrackingApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +43,7 @@ class MainActivity : ComponentActivity() {
                             destinationPredicate = AcceptAllNavDestinations()
                         )
                     }
-                    SetNavGraph(
-                        startDestination = Screens.OnboardingScreen.route,
-                        navController = navController
-                    )
+                    DestinationsNavHost(navGraph = NavGraphs.root )
                 }
             }
         }

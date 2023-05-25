@@ -2,6 +2,7 @@ package com.appslabke.every_shillings_android.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -22,14 +23,18 @@ import com.appslabke.every_shillings_android.R
 
 @Preview(showBackground = true)
 @Composable
-fun OfferCard() {
+fun OfferCard(
+    onclick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .padding(16.dp)
             .background(Color.White)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(10.dp),
-        elevation = 4.dp
+            .fillMaxWidth().clickable {
+                onclick()
+            },
+        shape = RoundedCornerShape(6.dp),
+        elevation = 3.dp
     )
     {
         Column(modifier = Modifier.padding(16.dp))
@@ -47,7 +52,7 @@ fun OfferCard() {
                     fontWeight = FontWeight.W400,
 
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     color = Color(0xFF2B5EC0)
                 )
 
@@ -66,7 +71,7 @@ fun OfferCard() {
                     fontWeight = FontWeight.W400,
 
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     color = Color(0xFF2B5EC0)
                 )
             }
@@ -86,7 +91,7 @@ fun OfferCard() {
                     fontWeight = FontWeight.W300,
 
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    fontSize = 18.sp,
+                    fontSize = 15.sp,
                     color = Color(0xFF000000)
                 )
 
@@ -96,7 +101,7 @@ fun OfferCard() {
                     fontWeight = FontWeight.W300,
 
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    fontSize = 18.sp,
+                    fontSize = 15.sp,
                     color = Color(0xFF000000)
                 )
 
@@ -107,7 +112,7 @@ fun OfferCard() {
                     fontWeight = FontWeight.W300,
 
                     fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                    fontSize = 18.sp,
+                    fontSize = 15.sp,
                     color = Color(0xFF000000)
                 )
 

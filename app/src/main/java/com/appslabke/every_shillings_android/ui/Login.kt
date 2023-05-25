@@ -26,15 +26,18 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
+import com.appslabke.every_shillings_android.destinations.LoginOtpDestination
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 //import com.appslabke.every_shillings_android.ui.screens.validateCode
 
 import com.togitech.ccp.component.*
 import com.togitech.ccp.data.utils.getLibCountries
-
+@Destination
 @Composable
 fun Login(
-    navigateToLoginOtpScreen: () -> Unit,
+    navigator:DestinationsNavigator
 ) {
     Column(
         modifier = Modifier
@@ -155,7 +158,7 @@ fun Login(
                     fullPhoneNumber.value = getFullPhoneNumber()
                     onlyPhoneNumber.value = getOnlyPhoneNumber()
 
-                    navigateToLoginOtpScreen()
+                   navigator.navigate(LoginOtpDestination)
 
 
                 } else if (!phoneNumberValid.value) {

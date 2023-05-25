@@ -20,15 +20,24 @@ import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.composables.OfferCards
 import com.appslabke.every_shillings_android.composables.Selection
+import com.appslabke.every_shillings_android.destinations.MarketPlaceDetailedScreenDestination
+import com.appslabke.every_shillings_android.navigation.BottomNavigationBar
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
 @Preview(showBackground = true)
+@Destination
 @Composable
-fun MarketPlace() {
+fun MarketPlace(
+    navigator: DestinationsNavigator
+) {
 
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
-        floatingActionButtonPosition = FabPosition.Center,
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = { BottomNavigationBar(navigator) },
+        floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(modifier = Modifier.padding(16.dp),
                 backgroundColor = Color(0xFF2B5EC0),
@@ -43,7 +52,7 @@ fun MarketPlace() {
                 .padding(it), horizontalAlignment = Alignment.Start
         ) {
             Text(
-                modifier = Modifier.padding(top = 30.dp, start = 20.dp),
+                modifier = Modifier.padding(top = 30.dp, start = 20.dp, bottom = 5.dp),
                 fontWeight = FontWeight.W400,
                 color = Color.Black,
                 fontSize = 24.sp,
@@ -51,7 +60,12 @@ fun MarketPlace() {
                 text = stringResource(R.string.market_place)
             )
             Selection()
-            OfferCards(hasOffers = false)
+            OfferCards(
+                hasOffers = true,
+                onclick = {
+                    navigator.navigate(MarketPlaceDetailedScreenDestination)
+                }
+            )
         }
     }
 }

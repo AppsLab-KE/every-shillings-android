@@ -27,9 +27,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.compose.rememberNavController
 import com.appslabke.every_shillings_android.R
+import com.appslabke.every_shillings_android.destinations.ExchangeCurrencyDestination
 import com.appslabke.every_shillings_android.navigation.BottomNavigationBar
 import com.appslabke.every_shillings_android.navigation.Screens
-import com.appslabke.every_shillings_android.navigation.SetNavGraph
 import com.github.tehras.charts.line.LineChart
 import com.github.tehras.charts.line.LineChartData
 import com.github.tehras.charts.line.renderer.line.SolidLineDrawer
@@ -37,32 +37,30 @@ import com.github.tehras.charts.line.renderer.point.FilledCircularPointDrawer
 import com.github.tehras.charts.line.renderer.xaxis.SimpleXAxisDrawer
 import com.github.tehras.charts.line.renderer.yaxis.SimpleYAxisDrawer
 import com.github.tehras.charts.piechart.animation.simpleChartAnimation
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Preview(showBackground = true, showSystemUi = true)
+@RootNavGraph(start = true)
+@Destination
 @Composable
 fun HomeScreen(
-    toexchangeCurr: () -> Unit,
-    navController : NavController
+    navigator: DestinationsNavigator
 ) {
     HomeContent(
-        toexchangeCurr = {
-            toexchangeCurr()
-
-        },
-        navController = navController
+        navigator = navigator
     )
 }
 
 
+
 @Composable
 fun HomeContent(
-    toexchangeCurr: () -> Unit,
-    navController : NavController
-
+    navigator: DestinationsNavigator
 ) {
-    val navController =navController
+    val navController = NavController
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController) },
+        bottomBar = { BottomNavigationBar(navigator) },
         content = { padding ->
 
             Surface(modifier = Modifier.fillMaxSize()) {
@@ -194,7 +192,7 @@ fun HomeContent(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Button(
-                            onClick = { toexchangeCurr()},
+                            onClick = { navigator.navigate(ExchangeCurrencyDestination) },
                             shape = RoundedCornerShape(10.dp),
                             colors = ButtonDefaults.buttonColors(Color(0xFF2B5EC0)),
                             contentPadding = PaddingValues(vertical = 8.dp, horizontal = 15.dp)

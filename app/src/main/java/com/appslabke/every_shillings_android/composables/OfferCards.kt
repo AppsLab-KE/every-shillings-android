@@ -21,7 +21,10 @@ import com.appslabke.every_shillings_android.R
 
 @Composable
 fun OfferCards(
-    modifier: Modifier = Modifier, hasOffers: Boolean
+    modifier: Modifier = Modifier,
+    hasOffers: Boolean,
+    onclick:() -> Unit
+
 ) {
 
     Column(modifier = modifier) {
@@ -32,15 +35,21 @@ fun OfferCards(
                     .fillMaxSize()
                     .padding(16.dp)
                     .wrapContentHeight(),
-                fontWeight = FontWeight.W400,
+                fontWeight = FontWeight.W300,
                 textAlign = TextAlign.Center,
                 color = Color.Black,
                 fontSize = 24.sp,
                 fontFamily = FontFamily(Font(R.font.urbanist_regular))
             )
         else
-            LazyColumn() {
-                items(items = (0..5).toList()) { OfferCard() }
+            LazyColumn(
+
+            ) {
+                items(items = (0..5).toList()) { OfferCard(
+                    onclick = {
+                        onclick()
+                    }
+                ) }
             }
     }
 

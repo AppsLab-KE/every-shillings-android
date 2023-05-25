@@ -5,6 +5,20 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'com.google.dagger.hilt.android'
     id 'kotlin-kapt'
+    id 'com.google.devtools.ksp' version '1.7.20-1.0.6'
+}
+
+
+// FOR COMPOSE DESTINATION
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
 }
 
 android {
@@ -48,7 +62,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion compose_ui_version
     }
     packagingOptions {
         resources {
@@ -99,4 +113,10 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    // navigation library (raamcosta)
+    def destinations_version = '1.7.27-beta'
+
+    implementation "io.github.raamcosta.compose-destinations:core:$destinations_version"
+    ksp "io.github.raamcosta.compose-destinations:ksp:$destinations_version"
 }

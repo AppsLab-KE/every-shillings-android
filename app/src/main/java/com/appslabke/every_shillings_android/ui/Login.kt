@@ -29,7 +29,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.appslabke.every_shillings_android.ForgetPasswordScreen
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.destinations.LoginOtpDestination
 import com.appslabke.every_shillings_android.destinations.SignupDestination
@@ -216,32 +215,6 @@ fun Login(
                 style = TextStyle(textDecoration = TextDecoration.Underline),
                 modifier = Modifier.clickable {
                     navigator.navigate(SignupDestination)
-                }
-            )
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Don't remember your password?",
-                fontWeight = FontWeight.Normal,
-                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                fontSize = 16.sp
-            )
-            Spacer(modifier = Modifier.width(2.dp))
-            Text(
-                text = "Reset",
-                fontWeight = FontWeight.Normal,
-                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
-                fontSize = 16.sp,
-                color = Color(0xFF2B5EC0),
-                style = TextStyle(textDecoration = TextDecoration.Underline),
-                modifier = Modifier.clickable {
-//                    navigator.navigate(ForgetPasswordScreenDestination)
                 }
             )
         }

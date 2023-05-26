@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.destinations.LoginDestination
-import com.appslabke.every_shillings_android.destinations.LoginOtpDestination
 import com.appslabke.every_shillings_android.destinations.SignupDestination
 import com.datadog.android.compose.ExperimentalTrackingApi
 import com.datadog.android.compose.trackClick

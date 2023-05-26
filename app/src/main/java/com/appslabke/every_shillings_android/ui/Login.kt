@@ -1,16 +1,20 @@
 package com.appslabke.every_shillings_android.ui
 
+//import com.appslabke.every_shillings_android.ui.screens.validateCode
+
 import android.util.Log
-import android.widget.Toast
-import androidx.compose.foundation.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,15 +29,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appslabke.every_shillings_android.ForgetPasswordScreen
 import com.appslabke.every_shillings_android.R
 import com.appslabke.every_shillings_android.destinations.LoginOtpDestination
+import com.appslabke.every_shillings_android.destinations.SignupDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-
-//import com.appslabke.every_shillings_android.ui.screens.validateCode
-
-import com.togitech.ccp.component.*
+import com.togitech.ccp.component.TogiCodeDialog
+import com.togitech.ccp.component.getFullPhoneNumber
+import com.togitech.ccp.component.getOnlyPhoneNumber
 import com.togitech.ccp.data.utils.getLibCountries
+
 @Destination
 @Composable
 fun Login(
@@ -209,7 +215,33 @@ fun Login(
                 color = Color(0xFF2B5EC0),
                 style = TextStyle(textDecoration = TextDecoration.Underline),
                 modifier = Modifier.clickable {
-                    /*TODO()*/
+                    navigator.navigate(SignupDestination)
+                }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Don't remember your password?",
+                fontWeight = FontWeight.Normal,
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                fontSize = 16.sp
+            )
+            Spacer(modifier = Modifier.width(2.dp))
+            Text(
+                text = "Reset",
+                fontWeight = FontWeight.Normal,
+                fontFamily = FontFamily(Font(R.font.urbanist_regular)),
+                fontSize = 16.sp,
+                color = Color(0xFF2B5EC0),
+                style = TextStyle(textDecoration = TextDecoration.Underline),
+                modifier = Modifier.clickable {
+//                    navigator.navigate(ForgetPasswordScreenDestination)
                 }
             )
         }

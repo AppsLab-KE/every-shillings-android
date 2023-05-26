@@ -1,21 +1,13 @@
 package com.appslabke.every_shillings_android.navigation
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.currentBackStackEntryAsState
-import com.appslabke.every_shillings_android.MainActivity
 import com.appslabke.every_shillings_android.destinations.ExchangeCurrencyDestination
 import com.appslabke.every_shillings_android.destinations.HomeScreenDestination
 import com.appslabke.every_shillings_android.destinations.MarketPlaceDestination

@@ -1,8 +1,5 @@
 package com.appslabke.every_shillings_android
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -18,33 +15,29 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-class ForgetPassword : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-           ForgetPasswordScreen()
-        }
-    }
-}
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
-@Preview(showBackground = true)
+@Destination
 @Composable
-fun ForgetPasswordScreen(){
+fun ForgetPasswordScreen(
+    navigator: DestinationsNavigator
+) {
     var emailAddress by remember { mutableStateOf("") }
 
-   Column(modifier = Modifier.fillMaxSize(),
-   horizontalAlignment = Alignment.CenterHorizontally)
-   {
-       Text(
-           modifier = Modifier.padding(top = 76.dp),
-           fontWeight = FontWeight.Bold,
-           color = Color.Black,
-           fontSize = 20.sp,
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    )
+    {
+        Text(
+            modifier = Modifier.padding(top = 76.dp),
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            fontSize = 20.sp,
 
            fontFamily = FontFamily(Font(R.font.urbanist_regular)),
            text = stringResource(R.string.title_activity_forget_password)

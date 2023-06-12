@@ -18,7 +18,7 @@ object AppModule {
     @Singleton
     fun provideApiService(): ApiService {
         return Retrofit.Builder()
-            .baseUrl("http://devapi.everyshilling.com")
+            .baseUrl("http://44.192.12.126")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)

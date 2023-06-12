@@ -6,7 +6,7 @@ import retrofit2.http.POST
 
 interface ApiService {
     // register user example
-    @POST("/register")
+    @POST("/api/auth/register")
     suspend fun register(@Body user: User)
 
     suspend fun verifyRegistration()
